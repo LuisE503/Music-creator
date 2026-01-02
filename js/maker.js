@@ -1,5 +1,5 @@
 // ============================================
-// BeatForge AI - Professional Beat Maker Studio v3.0
+// BeatForge AI - Professional Beat Maker Studio v3.5
 // Advanced Synthesis, Effects, and Humanization
 // ============================================
 
@@ -14,7 +14,10 @@ const SCALES = {
     dorian: [0, 2, 3, 5, 7, 9, 10],
     phrygian: [0, 1, 3, 5, 7, 8, 10],
     blues: [0, 3, 5, 6, 7, 10],
-    chromatic: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    chromatic: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    lydian: [0, 2, 4, 6, 7, 9, 11],
+    mixolydian: [0, 2, 4, 5, 7, 9, 10],
+    locrian: [0, 1, 3, 5, 6, 8, 10]
 };
 
 const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
@@ -229,7 +232,7 @@ class AudioEngine {
         
         // Sends
         this.reverbSend = this.ctx.createGain();
-        this.reverbSend.gain.value = 1.0; // Controlled per track
+        this.reverbSend.gain.value = 1.0; 
         
         this.delaySend = this.ctx.createGain();
         this.delaySend.gain.value = 1.0;
@@ -275,7 +278,6 @@ class AudioEngine {
         return buffer;
     }
 
-    // Helper to route track output to master and sends
     connectOutput(sourceNode, params) {
         const volGain = this.ctx.createGain();
         volGain.gain.value = dbToGain(params.vol || 0);
@@ -307,7 +309,7 @@ class AudioEngine {
     // ==========================================
 
     playKick(time, params = {}, stepIndex = 0) {
-        const { decay = 0.5, pitch = 150, click = 0.25 } = params;
+        const { decay = 0.5, pitch = 150 } = params;
         const humanTime = this.humanizer.humanizeTime(time, stepIndex);
         const velocity = this.humanizer.humanizeVelocity(0.9, stepIndex);
         
@@ -335,7 +337,6 @@ class AudioEngine {
         const humanTime = this.humanizer.humanizeTime(time, stepIndex);
         const velocity = this.humanizer.humanizeVelocity(0.85, stepIndex);
 
-        // Noise
         const noiseBuffer = this.createNoiseBuffer(noise);
         const noiseSrc = this.ctx.createBufferSource();
         noiseSrc.buffer = noiseBuffer;
@@ -352,7 +353,6 @@ class AudioEngine {
         noiseSrc.start(humanTime);
         noiseSrc.stop(humanTime + noise);
 
-        // Tone
         const osc = this.ctx.createOscillator();
         const oscGain = this.ctx.createGain();
         osc.type = 'triangle';
@@ -514,50 +514,102 @@ class AudioEngine {
         osc.start(humanTime);
         osc.stop(humanTime + attack + release);
     }
-}
 
-// ============================================
-// Genre Presets
-// ============================================
+    playPiano(time, params = {}, stepIndex = 0) {
+        const { note = 60, attack = 0.01, release = 0.8 } = params;
+        const humanTime = this.humanizer.humanizeTime(time, stepIndex);
+        const velocity = this.humanizer.humanizeVelocity(0.7, stepIndex);
+        const freq = midiToFreq(note);
 
-const GenrePresets = {
-    'trap': {
-        bpm: 140,
-        patterns: {
-            kick: [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0],
-            snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
-            hihat: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-            bass: [1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0]
-        }
-    },
-    'lofi': {
-        bpm: 85,
-        patterns: {
-            kick: [1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0],
-            snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1],
-            hihat: [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-            bass: [1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0]
-        }
-    },
-    'techno': {
-        bpm: 135,
-        patterns: {
-            kick: [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
-            snare: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            hihat: [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0],
-            bass: [0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0]
-        }
-    },
-    'synthwave': {
-        bpm: 118,
-        patterns: {
-            kick: [1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0],
-            snare: [0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
-            hihat: [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-            bass: [1,0,0,1,0,0,1,0,1,0,0,1,0,0,1,0]
-        }
+        const osc = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        osc2.type = 'triangle';
+        osc2.frequency.value = freq;
+        
+        osc.connect(gain);
+        osc2.connect(gain);
+        
+        gain.gain.setValueAtTime(0, humanTime);
+        gain.gain.linearRampToValueAtTime(velocity * 0.5, humanTime + attack);
+        gain.gain.exponentialRampToValueAtTime(0.001, humanTime + attack + release);
+        
+        this.connectOutput(gain, params);
+        
+        osc.start(humanTime);
+        osc2.start(humanTime);
+        osc.stop(humanTime + attack + release);
+        osc2.stop(humanTime + attack + release);
     }
-};
+
+    playPad(time, params = {}, stepIndex = 0) {
+        const { note = 60, attack = 0.4, release = 1.5, filter = 1500 } = params;
+        const humanTime = this.humanizer.humanizeTime(time, stepIndex);
+        const velocity = this.humanizer.humanizeVelocity(0.5, stepIndex);
+        const freq = midiToFreq(note);
+
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const biquad = this.ctx.createBiquadFilter();
+
+        osc1.type = 'sawtooth';
+        osc1.frequency.value = freq;
+        osc2.type = 'sawtooth';
+        osc2.frequency.value = freq * 1.01; // Detune
+
+        biquad.type = 'lowpass';
+        biquad.frequency.value = filter;
+
+        osc1.connect(biquad);
+        osc2.connect(biquad);
+        biquad.connect(gain);
+
+        gain.gain.setValueAtTime(0, humanTime);
+        gain.gain.linearRampToValueAtTime(velocity * 0.3, humanTime + attack);
+        gain.gain.exponentialRampToValueAtTime(0.001, humanTime + attack + release);
+
+        this.connectOutput(gain, params);
+
+        osc1.start(humanTime);
+        osc2.start(humanTime);
+        osc1.stop(humanTime + attack + release);
+        osc2.stop(humanTime + attack + release);
+    }
+
+    playPluck(time, params = {}, stepIndex = 0) {
+        const { note = 72, attack = 0.005, release = 0.3, filter = 2000 } = params;
+        const humanTime = this.humanizer.humanizeTime(time, stepIndex);
+        const velocity = this.humanizer.humanizeVelocity(0.6, stepIndex);
+        const freq = midiToFreq(note);
+
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const biquad = this.ctx.createBiquadFilter();
+
+        osc.type = 'square';
+        osc.frequency.value = freq;
+
+        biquad.type = 'lowpass';
+        biquad.frequency.setValueAtTime(filter, humanTime);
+        biquad.frequency.exponentialRampToValueAtTime(200, humanTime + release);
+
+        osc.connect(biquad);
+        biquad.connect(gain);
+
+        gain.gain.setValueAtTime(0, humanTime);
+        gain.gain.linearRampToValueAtTime(velocity * 0.4, humanTime + attack);
+        gain.gain.exponentialRampToValueAtTime(0.001, humanTime + attack + release);
+
+        this.connectOutput(gain, params);
+
+        osc.start(humanTime);
+        osc.stop(humanTime + attack + release);
+    }
+}
 
 // ============================================
 // Sequencer Logic
@@ -575,21 +627,92 @@ class Sequencer {
         this.scheduleAheadTime = 0.1;
         this.timerID = null;
         
-        // Default params
-        const defaults = { vol: 0, pan: 0, reverb: 0, delay: 0, attack: 0.01, release: 0.2, filter: 2000, res: 1 };
+        // Patterns: 4 slots (A, B, C, D)
+        // Each pattern is an array of track states
+        this.patterns = [[], [], [], []];
+        this.currentPatternIndex = 0;
         
+        // Default params
+        this.defaults = { vol: 0, pan: 0, reverb: 0, delay: 0, attack: 0.01, release: 0.2, filter: 2000, res: 1 };
+        
+        // Initial Tracks
         this.tracks = [
-            { name: 'Kick', color: 'bg-blue-500', steps: new Array(16).fill(false), params: { ...defaults, decay: 0.5, pitch: 150 }, play: (t, p, s) => this.audio.playKick(t, p, s) },
-            { name: 'Snare', color: 'bg-purple-500', steps: new Array(16).fill(false), params: { ...defaults, noise: 0.2, tone: 0.12 }, play: (t, p, s) => this.audio.playSnare(t, p, s) },
-            { name: 'HiHat', color: 'bg-yellow-500', steps: new Array(16).fill(false), params: { ...defaults, pitch: 8500, decay: 0.05 }, play: (t, p, s) => this.audio.playHiHat(t, p, s) },
-            { name: 'Clap', color: 'bg-pink-500', steps: new Array(16).fill(false), params: { ...defaults, spread: 0.012 }, play: (t, p, s) => this.audio.playClap(t, p, s) },
-            { name: 'Perc', color: 'bg-orange-500', steps: new Array(16).fill(false), params: { ...defaults, pitch: 420 }, play: (t, p, s) => this.audio.playPerc(t, p, s) },
-            { name: 'Bass', color: 'bg-red-500', steps: new Array(16).fill(false), params: { ...defaults, note: 36, filter: 450 }, play: (t, p, s) => this.audio.playBass(t, p, s) },
-            { name: 'Synth', color: 'bg-green-500', steps: new Array(16).fill(false), params: { ...defaults, note: 60, shape: 'triangle' }, play: (t, p, s) => this.audio.playSynth(t, p, s) },
-            { name: 'Lead', color: 'bg-cyan-500', steps: new Array(16).fill(false), params: { ...defaults, note: 72, shape: 'sawtooth' }, play: (t, p, s) => this.audio.playSynth(t, p, s) }
+            this.createTrack('kick'),
+            this.createTrack('snare'),
+            this.createTrack('hihat'),
+            this.createTrack('bass')
         ];
         
         this.selectedTrackIndex = 0;
+        
+        // Initialize patterns with current tracks
+        this.saveToPattern(0);
+    }
+
+    createTrack(type) {
+        const t = { 
+            type: type,
+            name: type.charAt(0).toUpperCase() + type.slice(1), 
+            steps: new Array(16).fill(false), 
+            params: { ...this.defaults } 
+        };
+
+        switch(type) {
+            case 'kick': t.color = 'bg-blue-500'; t.params.decay = 0.5; t.params.pitch = 150; break;
+            case 'snare': t.color = 'bg-purple-500'; t.params.noise = 0.2; t.params.tone = 0.12; break;
+            case 'hihat': t.color = 'bg-yellow-500'; t.params.pitch = 8500; t.params.decay = 0.05; break;
+            case 'clap': t.color = 'bg-pink-500'; t.params.spread = 0.012; break;
+            case 'perc': t.color = 'bg-orange-500'; t.params.pitch = 420; break;
+            case 'bass': t.color = 'bg-red-500'; t.params.note = 36; t.params.filter = 450; break;
+            case 'synth': t.color = 'bg-green-500'; t.params.note = 60; t.params.shape = 'triangle'; break;
+            case 'lead': t.color = 'bg-cyan-500'; t.params.note = 72; t.params.shape = 'sawtooth'; break;
+            case 'piano': t.color = 'bg-indigo-500'; t.params.note = 60; break;
+            case 'pad': t.color = 'bg-teal-500'; t.params.note = 48; t.params.attack = 0.5; break;
+            case 'pluck': t.color = 'bg-lime-500'; t.params.note = 64; break;
+            default: t.color = 'bg-gray-500';
+        }
+        return t;
+    }
+
+    playTrack(track, time, stepIndex) {
+        switch(track.type) {
+            case 'kick': this.audio.playKick(time, track.params, stepIndex); break;
+            case 'snare': this.audio.playSnare(time, track.params, stepIndex); break;
+            case 'hihat': this.audio.playHiHat(time, track.params, stepIndex); break;
+            case 'clap': this.audio.playClap(time, track.params, stepIndex); break;
+            case 'perc': this.audio.playPerc(time, track.params, stepIndex); break;
+            case 'bass': this.audio.playBass(time, track.params, stepIndex); break;
+            case 'synth': case 'lead': this.audio.playSynth(time, track.params, stepIndex); break;
+            case 'piano': this.audio.playPiano(time, track.params, stepIndex); break;
+            case 'pad': this.audio.playPad(time, track.params, stepIndex); break;
+            case 'pluck': this.audio.playPluck(time, track.params, stepIndex); break;
+        }
+    }
+
+    addTrack(type = 'kick') {
+        this.tracks.push(this.createTrack(type));
+        this.saveToPattern(this.currentPatternIndex); // Update current pattern structure
+        this.ui.renderGrid();
+    }
+
+    removeTrack(index) {
+        if (this.tracks.length <= 1) return;
+        this.tracks.splice(index, 1);
+        if (this.selectedTrackIndex >= this.tracks.length) {
+            this.selectedTrackIndex = this.tracks.length - 1;
+        }
+        this.saveToPattern(this.currentPatternIndex);
+        this.ui.renderGrid();
+        this.ui.updateSidebar();
+    }
+
+    changeInstrument(index, newType) {
+        const oldSteps = this.tracks[index].steps;
+        const newTrack = this.createTrack(newType);
+        newTrack.steps = oldSteps; // Preserve steps
+        this.tracks[index] = newTrack;
+        this.ui.renderGrid();
+        this.ui.updateSidebar();
     }
 
     start() {
@@ -631,41 +754,86 @@ class Sequencer {
 
         this.tracks.forEach(track => {
             if (track.steps[stepNumber]) {
-                track.play(time, track.params, stepNumber);
+                this.playTrack(track, time, stepNumber);
             }
         });
     }
 
     toggleStep(trackIndex, stepIndex) {
         this.tracks[trackIndex].steps[stepIndex] = !this.tracks[trackIndex].steps[stepIndex];
+        this.saveToPattern(this.currentPatternIndex); // Auto save
         return this.tracks[trackIndex].steps[stepIndex];
     }
 
-    clear() {
-        this.tracks.forEach(t => t.steps.fill(false));
-        this.ui.renderGrid();
+    // Pattern Management
+    saveToPattern(index) {
+        // Deep copy tracks steps
+        this.patterns[index] = this.tracks.map(t => ({
+            type: t.type,
+            steps: [...t.steps],
+            params: {...t.params} // Also save params per pattern? Maybe too complex. Let's save steps.
+        }));
     }
 
-    generateAI(genre) {
-        this.clear();
-        this.audio.setGenre(genre);
-        const preset = GenrePresets[genre];
-        if (preset) {
-            this.bpm = preset.bpm;
-            document.getElementById('bpm-input').value = this.bpm;
-            
-            const map = { kick: 0, snare: 1, hihat: 2, bass: 5 };
-            Object.keys(map).forEach(key => {
-                if (preset.patterns[key]) {
-                    this.tracks[map[key]].steps = [...preset.patterns[key]];
+    loadPattern(index) {
+        this.currentPatternIndex = index;
+        const patternData = this.patterns[index];
+        
+        if (!patternData || patternData.length === 0) {
+            // Empty pattern, clear steps but keep tracks if possible?
+            // Or just clear current tracks steps
+            this.tracks.forEach(t => t.steps.fill(false));
+        } else {
+            // Try to match tracks or reconstruct?
+            // For simplicity, we will just load steps into existing tracks if types match, 
+            // or if we want full state save, we replace tracks.
+            // Let's just load steps for now to keep it simple.
+            this.tracks.forEach((t, i) => {
+                if (patternData[i]) {
+                    t.steps = [...patternData[i].steps];
+                } else {
+                    t.steps.fill(false);
                 }
             });
         }
         this.ui.renderGrid();
+        this.ui.updatePatternButtons(index);
     }
-    
-    exportWAV() {
-        alert('Export feature coming soon in v3.1!');
+
+    clear() {
+        this.tracks.forEach(t => t.steps.fill(false));
+        this.saveToPattern(this.currentPatternIndex);
+        this.ui.renderGrid();
+    }
+
+    generateProcedural() {
+        this.clear();
+        const scaleName = document.getElementById('scale-select').value;
+        const rootKey = document.getElementById('key-select').value;
+        const scale = SCALES[scaleName] || SCALES.minor;
+        const rootMidi = 60; // Middle C approx
+
+        this.tracks.forEach(track => {
+            // Rhythm density based on instrument
+            let density = 0.3;
+            if (track.type === 'kick') density = 0.2;
+            if (track.type === 'hihat') density = 0.6;
+            
+            for(let i=0; i<16; i++) {
+                if (Math.random() < density) {
+                    track.steps[i] = true;
+                    
+                    // Melodic generation
+                    if (['bass', 'synth', 'lead', 'piano', 'pad', 'pluck'].includes(track.type)) {
+                        const scaleIndex = Math.floor(Math.random() * scale.length);
+                        const note = rootMidi + scale[scaleIndex] + (track.type === 'bass' ? -24 : 0);
+                        track.params.note = note;
+                    }
+                }
+            }
+        });
+        this.saveToPattern(this.currentPatternIndex);
+        this.ui.renderGrid();
     }
 }
 
@@ -685,6 +853,7 @@ class UI {
         this.setupControls();
         this.setupVisualizer();
         this.updateSidebar();
+        this.updatePatternButtons(0);
     }
 
     renderGrid() {
@@ -694,13 +863,13 @@ class UI {
             const row = document.createElement('div');
             row.className = `flex items-center gap-2 sm:gap-4 mb-2 p-2 rounded transition-colors ${trackIndex === this.sequencer.selectedTrackIndex ? 'bg-white/5 border border-white/10' : 'hover:bg-white/5 border border-transparent'}`;
             
-            // Track Label (Click to select)
+            // Track Label
             const label = document.createElement('div');
             label.className = 'w-24 text-xs font-bold text-gray-400 uppercase tracking-wider cursor-pointer flex items-center gap-2';
             label.innerHTML = `<div class='w-2 h-2 rounded-full ${track.color}'></div> ${track.name}`;
             label.onclick = () => {
                 this.sequencer.selectedTrackIndex = trackIndex;
-                this.renderGrid(); // Re-render to show selection
+                this.renderGrid();
                 this.updateSidebar();
             };
             row.appendChild(label);
@@ -737,14 +906,19 @@ class UI {
 
     updateSidebar() {
         const track = this.sequencer.tracks[this.sequencer.selectedTrackIndex];
+        if (!track) return;
+        
         const p = track.params;
         
-        // Update Inputs
         const setVal = (id, val) => {
             const el = document.getElementById(id);
             if (el) el.value = val;
         };
         
+        // Update Instrument Select
+        const instSelect = document.getElementById('instrument-select');
+        if (instSelect) instSelect.value = track.type;
+
         setVal('track-vol', p.vol);
         setVal('track-pan', p.pan);
         setVal('send-reverb', p.reverb);
@@ -754,12 +928,8 @@ class UI {
         setVal('param-filter', p.filter);
         setVal('param-res', p.res || 0);
         
-        // Update Labels
         document.getElementById('vol-val').innerText = `${p.vol}dB`;
         document.getElementById('pan-val').innerText = p.pan;
-        
-        // Show/Hide Synth Params based on track type? 
-        // For now, just show all.
     }
 
     setupControls() {
@@ -771,27 +941,44 @@ class UI {
         const bpmInput = document.getElementById('bpm-input');
         bpmInput.onchange = (e) => this.sequencer.bpm = parseInt(e.target.value);
         
-        // AI Generation
-        document.getElementById('generate-btn').onclick = () => {
-            // Find active genre
-            this.sequencer.generateAI('trap'); // Default for now
-        };
+        // Generate
+        document.getElementById('generate-btn').onclick = () => this.sequencer.generateProcedural();
         
-        // Genre Buttons
-        document.querySelectorAll('.genre-btn').forEach(btn => {
+        // Add/Remove Track
+        const addBtn = document.getElementById('add-track-btn');
+        if (addBtn) addBtn.onclick = () => this.sequencer.addTrack('kick'); // Default
+        
+        const removeBtn = document.getElementById('remove-track-btn');
+        if (removeBtn) removeBtn.onclick = () => this.sequencer.removeTrack(this.sequencer.selectedTrackIndex);
+
+        // Instrument Change
+        const instSelect = document.getElementById('instrument-select');
+        if (instSelect) {
+            instSelect.onchange = (e) => {
+                this.sequencer.changeInstrument(this.sequencer.selectedTrackIndex, e.target.value);
+            };
+        }
+
+        // Pattern Buttons
+        document.querySelectorAll('.pattern-btn').forEach(btn => {
             btn.onclick = () => {
-                this.sequencer.generateAI(btn.dataset.genre);
+                const index = parseInt(btn.dataset.pattern);
+                this.sequencer.saveToPattern(this.sequencer.currentPatternIndex); // Save current before switch
+                this.sequencer.loadPattern(index);
             };
         });
 
-        // Sidebar Controls (Live Update)
+        // Sidebar Controls
         const bindParam = (id, paramKey, displayId = null, suffix = '') => {
             const el = document.getElementById(id);
             if (!el) return;
             el.oninput = (e) => {
                 const val = parseFloat(e.target.value);
-                this.sequencer.tracks[this.sequencer.selectedTrackIndex].params[paramKey] = val;
-                if (displayId) document.getElementById(displayId).innerText = val + suffix;
+                const track = this.sequencer.tracks[this.sequencer.selectedTrackIndex];
+                if (track) {
+                    track.params[paramKey] = val;
+                    if (displayId) document.getElementById(displayId).innerText = val + suffix;
+                }
             };
         };
 
@@ -804,12 +991,23 @@ class UI {
         bindParam('param-filter', 'filter');
         bindParam('param-res', 'res');
         
-        // Master Vol
         document.getElementById('master-vol').oninput = (e) => {
             if (this.sequencer.audio.masterGain) {
                 this.sequencer.audio.masterGain.gain.value = parseFloat(e.target.value);
             }
         };
+    }
+
+    updatePatternButtons(activeIndex) {
+        document.querySelectorAll('.pattern-btn').forEach((btn, index) => {
+            if (index === activeIndex) {
+                btn.classList.remove('bg-white/5', 'text-gray-400');
+                btn.classList.add('bg-primary', 'text-white');
+            } else {
+                btn.classList.add('bg-white/5', 'text-gray-400');
+                btn.classList.remove('bg-primary', 'text-white');
+            }
+        });
     }
 
     togglePlayButton(isPlaying) {
