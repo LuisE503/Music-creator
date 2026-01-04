@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeatForge Studio | Crea Música Profesional con IA</title>
+    <title>BeatForge Studio | Professional Music Creator with AI</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Estudio de producción musical online. Crea beats, melodías y pistas completas con ayuda de IA. Secuenciador avanzado, sintetizadores y efectos.">
-    <meta name="keywords" content="daw online, beat maker, music production, ai music, synthesizer, drum machine, web audio api">
+    <meta name="description" content="Professional online music creation studio. Create songs, beats, and full tracks with AI assistance. Advanced sequencer, 50+ instruments, and real-time collaboration.">
+    <meta name="keywords" content="daw online, music creator, music production, ai music, synthesizer, instruments, web audio api, bandlab alternative">
     <meta name="author" content="BeatForge AI">
     <meta name="robots" content="index, follow">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://beatforge.ai/maker">
+    <link rel="canonical" href="https://beatforge.ai/studio">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'></text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -42,7 +42,8 @@
                         mono: ['JetBrains Mono', 'monospace']
                     },
                     gridTemplateColumns: {
-                        '16': 'repeat(16, minmax(0, 1fr))'
+                        '16': 'repeat(16, minmax(0, 1fr))',
+                        '32': 'repeat(32, minmax(0, 1fr))'
                     }
                 }
             }
@@ -51,135 +52,126 @@
     
     <style>
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f0f23; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2a2a3c; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #6366f1; 
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f23; }
+        ::-webkit-scrollbar-thumb { background: #2a2a3c; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
 
         /* Range Slider Styling */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
+        input[type=range] { -webkit-appearance: none; background: transparent; }
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 16px;
-            width: 16px;
-            border-radius: 50%;
-            background: #6366f1;
-            cursor: pointer;
-            margin-top: -6px;
+            -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%;
+            background: #6366f1; cursor: pointer; margin-top: -6px;
             box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
         }
         input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #2a2a3c;
-            border-radius: 2px;
+            width: 100%; height: 4px; cursor: pointer;
+            background: #2a2a3c; border-radius: 2px;
         }
         
-        /* Sequencer Grid */
-        .step-cell {
-            transition: all 0.1s ease;
-        }
-        .step-cell:hover {
-            transform: scale(1.05);
-            z-index: 10;
-        }
-        .step-cell.active {
-            box-shadow: 0 0 15px currentColor;
-        }
-        .step-cell.current-step {
-            filter: brightness(1.5);
+        /* Piano Roll Grid */
+        .piano-roll-grid { display: grid; grid-template-columns: 80px 1fr; }
+        .note-row { display: grid; grid-template-columns: repeat(32, 20px); gap: 1px; }
+        .note-cell { height: 20px; cursor: pointer; transition: all 0.1s; }
+        .note-cell:hover { filter: brightness(1.3); }
+        .note-cell.active { filter: brightness(1.5); box-shadow: 0 0 10px currentColor; }
+        
+        /* Timeline */
+        .timeline-ruler { display: grid; grid-template-columns: repeat(32, 20px); }
+        
+        /* Loading Animation */
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .animate-spin { animation: spin 1s linear infinite; }
+        
+        /* Glow effect */
+        .glow { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
         }
     </style>
 </head>
 <body class="bg-darker text-white h-screen flex flex-col overflow-hidden font-sans">
 
     <!-- Top Bar -->
-    <header class="h-16 bg-surface border-b border-white/5 flex items-center justify-between px-4 z-50 shrink-0">
-        <div class="flex items-center gap-4">
+    <header class="h-14 bg-surface border-b border-white/5 flex items-center justify-between px-3 z-50 shrink-0">
+        <div class="flex items-center gap-3">
             <a href="index.html" class="flex items-center gap-2 group">
                 <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span></span>
+                    <span class="text-lg">🎵</span>
                 </div>
-                <span class="font-bold text-lg tracking-tight">BeatForge <span class="text-primary">Studio</span></span>
+                <span class="font-bold text-base tracking-tight text-white">BeatForge <span class="text-primary">Studio</span></span>
             </a>
             
             <div class="h-6 w-px bg-white/10 mx-2"></div>
             
             <!-- Transport Controls -->
-            <div class="flex items-center gap-2 bg-darker/50 p-1 rounded-lg border border-white/5">
-                <button id="play-btn" class="w-10 h-10 rounded bg-primary hover:bg-primary/90 flex items-center justify-center transition text-white" title="Play/Stop (Space)">
+            <div class="flex items-center gap-1 bg-darker/50 p-1 rounded-lg border border-white/5">
+                <button id="play-btn" class="w-9 h-9 rounded bg-primary hover:bg-primary/90 flex items-center justify-center transition text-white" title="Play (Space)">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 </button>
-                <button id="stop-btn" class="w-10 h-10 rounded hover:bg-white/10 flex items-center justify-center transition text-gray-300" title="Stop">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+                <button id="stop-btn" class="w-9 h-9 rounded hover:bg-white/10 flex items-center justify-center transition text-gray-300" title="Stop">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
                 </button>
-                <div class="flex flex-col px-3 border-l border-white/5">
-                    <label class="text-[10px] text-gray-500 font-mono uppercase">BPM</label>
-                    <input type="number" id="bpm-input" value="120" min="60" max="200" class="bg-transparent w-12 font-mono font-bold text-center focus:outline-none focus:text-primary">
+                <button id="record-btn" class="w-9 h-9 rounded hover:bg-red-500/20 flex items-center justify-center transition text-gray-300 hover:text-red-500" title="Record">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+                </button>
+                <div class="flex flex-col px-2 border-l border-white/5">
+                    <label class="text-[9px] text-gray-500 font-mono uppercase">BPM</label>
+                    <input type="number" id="bpm-input" value="120" min="40" max="240" class="bg-transparent w-10 font-mono font-bold text-xs text-center focus:outline-none focus:text-primary">
+                </div>
+                <div class="flex flex-col px-2 border-l border-white/5">
+                    <label class="text-[9px] text-gray-500 font-mono uppercase">Time</label>
+                    <span id="time-display" class="font-mono font-bold text-xs text-white">0:00</span>
                 </div>
             </div>
+
+            <!-- Loop Controls -->
+            <button id="loop-btn" class="px-3 py-1 rounded bg-white/5 hover:bg-white/10 text-xs font-bold border border-white/10 transition" title="Toggle Loop">
+                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                LOOP
+            </button>
         </div>
 
-        <!-- Global Settings -->
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2">
-                <select id="key-select" class="bg-surfaceHighlight border border-white/10 rounded px-2 py-1 text-sm focus:border-primary outline-none">
-                    <option value="C">C</option>
-                    <option value="C#">C#</option>
-                    <option value="D">D</option>
-                    <option value="D#">D#</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="F#">F#</option>
-                    <option value="G">G</option>
-                    <option value="G#">G#</option>
-                    <option value="A">A</option>
-                    <option value="A#">A#</option>
-                    <option value="B">B</option>
-                </select>
-                <select id="scale-select" class="bg-surfaceHighlight border border-white/10 rounded px-2 py-1 text-sm focus:border-primary outline-none">
-                    <option value="minor">Minor</option>
-                    <option value="major">Major</option>
-                    <option value="dorian">Dorian</option>
-                    <option value="phrygian">Phrygian</option>
-                    <option value="lydian">Lydian</option>
-                    <option value="mixolydian">Mixolydian</option>
-                    <option value="locrian">Locrian</option>
-                    <option value="pentatonic">Pentatonic</option>
-                </select>
-            </div>
+        <!-- Right Actions -->
+        <div class="flex items-center gap-2">
+            <select id="key-select" class="bg-surfaceHighlight border border-white/10 rounded px-2 py-1 text-xs focus:border-primary outline-none">
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+                <option value="D">D</option>
+                <option value="Eb">Eb</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="F#">F#</option>
+                <option value="G">G</option>
+                <option value="Ab">Ab</option>
+                <option value="A">A</option>
+                <option value="Bb">Bb</option>
+                <option value="B">B</option>
+            </select>
+            <select id="scale-select" class="bg-surfaceHighlight border border-white/10 rounded px-2 py-1 text-xs focus:border-primary outline-none">
+                <option value="major">Major</option>
+                <option value="minor">Minor</option>
+                <option value="dorian">Dorian</option>
+                <option value="phrygian">Phrygian</option>
+                <option value="lydian">Lydian</option>
+                <option value="mixolydian">Mixolydian</option>
+                <option value="pentatonic">Pentatonic</option>
+                <option value="blues">Blues</option>
+                <option value="chromatic">Chromatic</option>
+            </select>
             
-            <div class="flex items-center gap-2 bg-darker/50 p-1 rounded-lg border border-white/5 mr-4">
-                <span class="text-[10px] text-gray-500 font-mono uppercase px-2">Patrón</span>
-                <div class="flex gap-1">
-                    <button class="pattern-btn w-6 h-6 rounded bg-primary text-xs font-bold" data-pattern="0">A</button>
-                    <button class="pattern-btn w-6 h-6 rounded hover:bg-white/10 text-xs font-bold text-gray-400" data-pattern="1">B</button>
-                    <button class="pattern-btn w-6 h-6 rounded hover:bg-white/10 text-xs font-bold text-gray-400" data-pattern="2">C</button>
-                    <button class="pattern-btn w-6 h-6 rounded hover:bg-white/10 text-xs font-bold text-gray-400" data-pattern="3">D</button>
-                </div>
-            </div>
-
-            <button id="generate-btn" class="px-4 py-2 bg-gradient-to-r from-secondary to-accent rounded-lg font-bold text-sm hover:opacity-90 transition shadow-lg shadow-secondary/20 flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                Generar Patrón
+            <button id="ai-compose-btn" class="px-3 py-1.5 bg-gradient-to-r from-secondary to-accent rounded-lg font-bold text-xs hover:opacity-90 transition shadow-lg shadow-secondary/20 flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                AI Composer
             </button>
             
-            <button id="export-btn" class="px-4 py-2 bg-surfaceHighlight hover:bg-white/10 rounded-lg font-medium text-sm transition border border-white/10">
-                Exportar WAV
+            <button id="export-btn" class="px-3 py-1.5 bg-surfaceHighlight hover:bg-white/10 rounded-lg font-medium text-xs transition border border-white/10">
+                Export WAV
+            </button>
+
+            <button id="save-btn" class="px-3 py-1.5 bg-green-500/20 hover:bg-green-500/30 text-green-500 rounded-lg font-medium text-xs transition border border-green-500/20">
+                💾 Save
             </button>
         </div>
     </header>
@@ -187,176 +179,313 @@
     <!-- Main Workspace -->
     <div class="flex-1 flex overflow-hidden">
         
-        <!-- Sidebar: Track Settings -->
-        <aside class="w-80 bg-surface border-r border-white/5 flex flex-col overflow-y-auto shrink-0 z-20">
-            <div class="p-4 border-b border-white/5">
-                <h2 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Configuración de Pista</h2>
-                
-                <!-- Selected Track Info -->
-                <div id="track-controls" class="space-y-6 opacity-50 pointer-events-none transition-opacity">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Instrumento</label>
-                        <select id="instrument-select" class="w-full bg-darker border border-white/10 rounded p-2 text-sm focus:border-primary outline-none">
-                            <optgroup label="Drums">
-                                <option value="kick">Kick Drum</option>
-                                <option value="snare">Snare Drum</option>
-                                <option value="hihat">Hi-Hat</option>
-                                <option value="clap">Clap</option>
-                                <option value="perc">Percussion</option>
-                            </optgroup>
-                            <optgroup label="Melodic">
-                                <option value="bass">Synth Bass</option>
-                                <option value="pad">Atmospheric Pad</option>
-                                <option value="lead">Lead Synth</option>
-                                <option value="pluck">Pluck Synth</option>
-                                <option value="piano">Electric Piano</option>
-                            </optgroup>
-                        </select>
-                    </div>
-
-                    <!-- ADSR / Sound Params -->
-                    <div class="space-y-3">
-                        <div class="flex justify-between text-xs text-gray-400">
-                            <span>Volumen</span>
-                            <span id="vol-val">0dB</span>
-                        </div>
-                        <input type="range" id="track-vol" min="-60" max="6" value="0" class="w-full">
-                        
-                        <div class="flex justify-between text-xs text-gray-400">
-                            <span>Pan</span>
-                            <span id="pan-val">C</span>
-                        </div>
-                        <input type="range" id="track-pan" min="-1" max="1" step="0.1" value="0" class="w-full">
-                    </div>
-
-                    <!-- Effects Sends -->
-                    <div class="space-y-3 pt-4 border-t border-white/5">
-                        <label class="block text-xs text-gray-500 mb-1">Envíos de Efectos</label>
-                        
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs w-12 text-gray-400">Reverb</span>
-                            <input type="range" id="send-reverb" min="0" max="1" step="0.01" value="0" class="flex-1">
-                        </div>
-                        
-                        <div class="flex items-center gap-3">
-                            <span class="text-xs w-12 text-gray-400">Delay</span>
-                            <input type="range" id="send-delay" min="0" max="1" step="0.01" value="0" class="flex-1">
-                        </div>
-                    </div>
-                    
-                    <!-- Synthesis Params (Dynamic based on instrument) -->
-                    <div id="synth-params" class="space-y-3 pt-4 border-t border-white/5">
-                        <label class="block text-xs text-gray-500 mb-1">Síntesis</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[10px] text-gray-500">Attack</label>
-                                <input type="range" id="param-attack" min="0.001" max="1" step="0.01" class="w-full">
-                            </div>
-                            <div>
-                                <label class="text-[10px] text-gray-500">Release</label>
-                                <input type="range" id="param-release" min="0.01" max="2" step="0.01" class="w-full">
-                            </div>
-                            <div>
-                                <label class="text-[10px] text-gray-500">Filter</label>
-                                <input type="range" id="param-filter" min="100" max="10000" step="100" class="w-full">
-                            </div>
-                            <div>
-                                <label class="text-[10px] text-gray-500">Resonance</label>
-                                <input type="range" id="param-res" min="0" max="20" step="0.1" class="w-full">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button id="remove-track-btn" class="w-full py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded border border-red-500/20 transition text-xs font-bold mt-6">
-                        Eliminar Pista
-                    </button>
-                </div>
-                
-                <div id="no-track-msg" class="text-center py-10 text-gray-500 text-sm">
-                    Selecciona una pista para editar sus parámetros
-                </div>
+        <!-- Left Sidebar: Instrument Browser -->
+        <aside class="w-64 bg-surface border-r border-white/5 flex flex-col shrink-0 z-20">
+            <div class="p-3 border-b border-white/5 flex items-center justify-between">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Instruments</h2>
+                <button id="refresh-instruments" class="text-gray-400 hover:text-white transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                </button>
             </div>
-        </aside>
-
-        <!-- Sequencer Area -->
-        <main class="flex-1 bg-darker relative overflow-hidden flex flex-col">
-            <!-- Timeline/Ruler -->
-            <div class="h-8 bg-surface border-b border-white/5 flex items-end px-4 ml-[120px]">
-                <div class="flex-1 grid grid-cols-16 gap-1">
+            
+            <div class="flex-1 overflow-y-auto p-2">
+                <!-- Search -->
+                <input type="text" id="instrument-search" placeholder="Search instruments..." class="w-full px-3 py-2 bg-darker border border-white/10 rounded text-xs focus:border-primary outline-none mb-3">
+                
+                <!-- Instrument Categories -->
+                <div id="instrument-list" class="space-y-2">
                     <!-- Generated by JS -->
                 </div>
             </div>
 
-            <!-- Tracks Container -->
-            <div class="flex-1 overflow-y-auto overflow-x-hidden p-4" id="sequencer-scroll-area">
-                <div id="sequencer-tracks" class="space-y-2">
-                    <!-- Tracks generated by JS -->
-                </div>
-                <button id="add-track-btn" class="w-full py-2 border-2 border-dashed border-white/10 rounded hover:border-primary/50 hover:bg-white/5 text-gray-500 hover:text-primary transition flex items-center justify-center gap-2 mt-4">
+            <div class="p-3 border-t border-white/5">
+                <button id="add-track-btn" class="w-full py-2 bg-primary hover:bg-primary/90 rounded text-xs font-bold transition flex items-center justify-center gap-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    Añadir Pista
+                    Add Track
                 </button>
             </div>
-            
-            <!-- Bottom Panel: Visualizer & Master -->
-            <div class="h-48 bg-surface border-t border-white/5 shrink-0 flex">
-                <div class="w-1/2 relative border-r border-white/5">
-                    <canvas id="visualizer" class="w-full h-full"></canvas>
-                    <div class="absolute top-2 left-2 text-xs text-gray-500 font-mono">MASTER OUTPUT</div>
+        </aside>
+
+        <!-- Center: Timeline & Piano Roll -->
+        <main class="flex-1 bg-darker relative overflow-hidden flex flex-col">
+            <!-- Mode Tabs -->
+            <div class="h-10 bg-surface border-b border-white/5 flex items-center px-3 gap-2">
+                <button class="mode-tab active px-4 py-1.5 rounded text-xs font-bold transition" data-mode="sequencer">
+                    Sequencer
+                </button>
+                <button class="mode-tab px-4 py-1.5 rounded text-xs font-bold transition" data-mode="piano-roll">
+                    Piano Roll
+                </button>
+                <button class="mode-tab px-4 py-1.5 rounded text-xs font-bold transition" data-mode="mixer">
+                    Mixer
+                </button>
+                <button class="mode-tab px-4 py-1.5 rounded text-xs font-bold transition" data-mode="automation">
+                    Automation
+                </button>
+                <div class="flex-1"></div>
+                <span class="text-xs text-gray-500">Grid: <select id="grid-size" class="bg-darker border border-white/10 rounded px-2 py-0.5 text-xs"><option value="16">16th</option><option value="8">8th</option><option value="4">Quarter</option></select></span>
+            </div>
+
+            <!-- Sequencer View -->
+            <div id="sequencer-view" class="flex-1 flex flex-col">
+                <!-- Timeline Ruler -->
+                <div class="h-8 bg-surface border-b border-white/5 flex items-center px-3 overflow-x-auto">
+                    <div class="w-28 shrink-0"></div>
+                    <div id="timeline-ruler" class="flex">
+                        <!-- Generated by JS -->
+                    </div>
                 </div>
-                <div class="w-1/2 p-4 flex gap-8">
-                    <!-- Master Controls -->
-                    <div class="space-y-2">
-                        <label class="text-xs text-gray-400 font-bold">MASTER VOLUME</label>
-                        <input type="range" id="master-vol" min="0" max="1.2" step="0.01" value="0.8" class="w-48 block">
+
+                <!-- Tracks Container -->
+                <div class="flex-1 overflow-auto" id="tracks-scroll-area">
+                    <div id="tracks-container">
+                        <!-- Generated by JS -->
                     </div>
                     
-                    <!-- Genre Selector for AI -->
-                    <div class="space-y-2">
-                        <label class="text-xs text-gray-400 font-bold">ESTILO IA</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button class="genre-btn px-3 py-1 rounded bg-white/5 hover:bg-primary/20 text-xs border border-white/10 transition" data-genre="trap">Trap</button>
-                            <button class="genre-btn px-3 py-1 rounded bg-white/5 hover:bg-primary/20 text-xs border border-white/10 transition" data-genre="lofi">Lo-Fi</button>
-                            <button class="genre-btn px-3 py-1 rounded bg-white/5 hover:bg-primary/20 text-xs border border-white/10 transition" data-genre="techno">Techno</button>
-                            <button class="genre-btn px-3 py-1 rounded bg-white/5 hover:bg-primary/20 text-xs border border-white/10 transition" data-genre="synthwave">Synthwave</button>
+                    <button id="add-track-inline" class="w-full py-3 border-2 border-dashed border-white/10 hover:border-primary/50 hover:bg-white/5 text-gray-500 hover:text-primary transition flex items-center justify-center gap-2 text-xs font-bold mt-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Add Track
+                    </button>
+                </div>
+            </div>
+
+            <!-- Piano Roll View (Hidden by default) -->
+            <div id="piano-roll-view" class="flex-1 hidden flex-col">
+                <div class="flex-1 overflow-auto p-4">
+                    <div class="text-center text-gray-500 py-20">
+                        <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                        <p class="text-sm font-bold">Piano Roll</p>
+                        <p class="text-xs mt-2">Select a melodic track to edit notes</p>
+                    </div>
+                    <div id="piano-roll-grid" class="hidden">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mixer View (Hidden by default) -->
+            <div id="mixer-view" class="flex-1 hidden">
+                <div class="flex h-full overflow-x-auto p-4 gap-4" id="mixer-channels">
+                    <!-- Generated by JS -->
+                </div>
+            </div>
+
+            <!-- Bottom: Visualizer & Master -->
+            <div class="h-32 bg-surface border-t border-white/5 shrink-0 flex">
+                <div class="flex-1 relative">
+                    <canvas id="visualizer" class="w-full h-full"></canvas>
+                    <div class="absolute top-2 left-2 text-[10px] text-gray-500 font-mono uppercase">Waveform Monitor</div>
+                </div>
+                <div class="w-48 p-3 border-l border-white/5 flex flex-col justify-between">
+                    <div>
+                        <label class="text-[10px] text-gray-400 font-bold uppercase block mb-1">Master Volume</label>
+                        <input type="range" id="master-vol" min="0" max="1.2" step="0.01" value="0.8" class="w-full">
+                        <div class="flex justify-between text-[10px] text-gray-500 mt-1">
+                            <span>-∞</span>
+                            <span id="master-vol-db">-1.9dB</span>
+                            <span>+2</span>
                         </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="flex-1 px-2 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-500 rounded text-xs font-bold transition">
+                            🔴 REC
+                        </button>
+                        <button class="flex-1 px-2 py-1 bg-white/5 hover:bg-white/10 rounded text-xs font-bold transition">
+                            ⚙️ Mix
+                        </button>
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- Right Sidebar: Track Properties & AI -->
+        <aside class="w-80 bg-surface border-l border-white/5 flex flex-col overflow-y-auto shrink-0 z-20">
+            <div class="p-4 border-b border-white/5">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Track Settings</h2>
+                    <button id="delete-track-btn" class="text-red-500 hover:text-red-400 transition text-xs font-bold">
+                        🗑️ Delete
+                    </button>
+                </div>
+                
+                <div id="track-properties" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1.5 font-semibold">Track Name</label>
+                        <input type="text" id="track-name" placeholder="My Track" class="w-full px-3 py-2 bg-darker border border-white/10 rounded text-sm focus:border-primary outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1.5 font-semibold">Instrument</label>
+                        <select id="track-instrument" class="w-full px-3 py-2 bg-darker border border-white/10 rounded text-sm focus:border-primary outline-none">
+                            <!-- Generated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1.5">Volume</label>
+                            <input type="range" id="track-vol" min="-60" max="6" value="0" class="w-full">
+                            <div class="text-xs text-gray-500 text-center mt-1" id="vol-val">0dB</div>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1.5">Pan</label>
+                            <input type="range" id="track-pan" min="-1" max="1" step="0.1" value="0" class="w-full">
+                            <div class="text-xs text-gray-500 text-center mt-1" id="pan-val">C</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-2 font-semibold">Effects Sends</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs w-16 text-gray-400">Reverb</span>
+                                <input type="range" id="send-reverb" min="0" max="1" step="0.01" value="0" class="flex-1">
+                                <span class="text-xs text-gray-500 w-8 text-right" id="reverb-val">0%</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs w-16 text-gray-400">Delay</span>
+                                <input type="range" id="send-delay" min="0" max="1" step="0.01" value="0" class="flex-1">
+                                <span class="text-xs text-gray-500 w-8 text-right" id="delay-val">0%</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs w-16 text-gray-400">Chorus</span>
+                                <input type="range" id="send-chorus" min="0" max="1" step="0.01" value="0" class="flex-1">
+                                <span class="text-xs text-gray-500 w-8 text-right" id="chorus-val">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="synth-controls" class="border-t border-white/5 pt-4">
+                        <label class="block text-xs text-gray-400 mb-2 font-semibold">Synthesis Parameters</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[10px] text-gray-500">Attack</label>
+                                <input type="range" id="param-attack" min="0.001" max="2" step="0.01" value="0.01" class="w-full">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500">Decay</label>
+                                <input type="range" id="param-decay" min="0.01" max="2" step="0.01" value="0.1" class="w-full">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500">Sustain</label>
+                                <input type="range" id="param-sustain" min="0" max="1" step="0.01" value="0.7" class="w-full">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500">Release</label>
+                                <input type="range" id="param-release" min="0.01" max="3" step="0.01" value="0.3" class="w-full">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500">Filter Cutoff</label>
+                                <input type="range" id="param-filter" min="100" max="12000" step="100" value="2000" class="w-full">
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500">Resonance</label>
+                                <input type="range" id="param-res" min="0" max="30" step="0.5" value="1" class="w-full">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Composer Panel -->
+            <div class="p-4 border-b border-white/5 bg-gradient-to-br from-purple-900/20 to-pink-900/20">
+                <h3 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    AI Music Generator
+                </h3>
+                
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1.5">Artist Style</label>
+                        <input type="text" id="ai-artist-style" placeholder="e.g., Drake, Daft Punk, Billie Eilish" class="w-full px-3 py-2 bg-darker/50 border border-purple-500/30 rounded text-sm focus:border-purple-500 outline-none">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1.5">Mood/Genre</label>
+                        <select id="ai-mood" class="w-full px-3 py-2 bg-darker/50 border border-purple-500/30 rounded text-sm focus:border-purple-500 outline-none">
+                            <option value="chill">Chill / Relaxed</option>
+                            <option value="energetic">Energetic / Upbeat</option>
+                            <option value="dark">Dark / Moody</option>
+                            <option value="happy">Happy / Joyful</option>
+                            <option value="sad">Sad / Melancholic</option>
+                            <option value="aggressive">Aggressive / Intense</option>
+                            <option value="ambient">Ambient / Atmospheric</option>
+                            <option value="electronic">Electronic / Synth</option>
+                            <option value="acoustic">Acoustic / Organic</option>
+                            <option value="hyperpop">Hyperpop / Experimental</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-1.5">Complexity</label>
+                        <div class="flex gap-2">
+                            <button class="complexity-btn flex-1 py-2 bg-darker/50 border border-purple-500/30 rounded text-xs hover:bg-purple-500/20 transition" data-level="simple">Simple</button>
+                            <button class="complexity-btn flex-1 py-2 bg-darker/50 border border-purple-500/30 rounded text-xs hover:bg-purple-500/20 transition" data-level="medium">Medium</button>
+                            <button class="complexity-btn flex-1 py-2 bg-darker/50 border border-purple-500/30 rounded text-xs hover:bg-purple-500/20 transition" data-level="complex">Complex</button>
+                        </div>
+                    </div>
+
+                    <button id="generate-ai-music" class="w-full py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-lg font-bold text-sm transition shadow-lg flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        Generate with AI
+                    </button>
+
+                    <div id="ai-status" class="hidden text-xs text-center text-purple-400">
+                        <div class="animate-spin inline-block w-4 h-4 border-2 border-purple-400 border-t-transparent rounded-full mr-2"></div>
+                        Generating music...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preset Library -->
+            <div class="p-4">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Genre Presets</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="trap">Trap</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="lofi">Lo-Fi</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="edm">EDM</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="pop">Pop</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="rock">Rock</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="jazz">Jazz</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="techno">Techno</button>
+                    <button class="preset-btn px-3 py-2 bg-white/5 hover:bg-primary/20 rounded text-xs font-medium border border-white/10 transition" data-genre="hyperpop">Hyperpop</button>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-surface border-t border-white/5 py-4 px-6 shrink-0">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-xs text-gray-500">
-                &copy; 2026 BeatForge AI. Todos los derechos reservados.
+    <!-- Modals -->
+    <!-- AI Generation Modal -->
+    <div id="ai-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
+        <div class="bg-surface border border-white/10 rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                AI Music Generation
+            </h3>
+            <p class="text-sm text-gray-400 mb-4">The AI is analyzing your preferences and generating a unique composition...</p>
+            <div class="space-y-3">
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-400">Analyzing style...</span>
+                    <span class="text-green-400">✓</span>
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-400">Generating melody...</span>
+                    <div class="animate-spin w-4 h-4 border-2 border-purple-400 border-t-transparent rounded-full"></div>
+                </div>
+                <div class="flex items-center justify-between text-sm text-gray-600">
+                    <span>Creating harmony...</span>
+                    <span>⏳</span>
+                </div>
+                <div class="flex items-center justify-between text-sm text-gray-600">
+                    <span>Adding drums...</span>
+                    <span>⏳</span>
+                </div>
             </div>
-            
-            <div class="flex gap-4">
-                <!-- GitHub -->
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </a>
-                <!-- X -->
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
-                <!-- YouTube -->
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#FF0000] transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                </a>
-                <!-- Instagram -->
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-pink-500 transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
-                <!-- LinkedIn -->
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#0077b5] transition-colors">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
-            </div>
+            <button id="cancel-ai" class="mt-6 w-full py-2 bg-red-500/20 hover:bg-red-500/30 text-red-500 rounded-lg font-bold text-sm transition">
+                Cancel Generation
+            </button>
         </div>
-    </footer>
+    </div>
 
     <script type="module" src="js/maker.js"></script>
 </body>
