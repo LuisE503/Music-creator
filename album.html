@@ -1,962 +1,285 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Album - BeatForge AI | Música Procedural</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Escucha música generada proceduralmente con BeatForge AI. Cada reproducción es única gracias a nuestra tecnología de síntesis en tiempo real.">
-    <meta name="keywords" content="música procedural, AI music, generador de música, beats, lo-fi, ambient, synthwave">
-    <meta name="author" content="BeatForge AI">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title id="pageTitle">Álbum | BeatForge AI - Música Sin Copyright</title>
+    <meta name="description" id="pageDesc" content="Escucha música sin copyright de alta calidad en BeatForge AI.">
+    <meta id="ogTitle" property="og:title" content="Álbum de Música Sin Copyright">
+    <meta id="ogDesc" property="og:description" content="Escucha música sin copyright de alta calidad.">
+    <meta id="ogImage" property="og:image" content="">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://beatforge.ai/album">
-    <meta property="og:title" content="Album - BeatForge AI">
-    <meta property="og:description" content="Escucha música generada proceduralmente. Cada reproducción es única.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1516280440614-6697288d5d38?auto=format&fit=crop&w=1200&q=80">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
     
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://beatforge.ai/album">
-    <meta name="twitter:title" content="Album - BeatForge AI">
-    <meta name="twitter:description" content="Escucha música generada proceduralmente. Cada reproducción es única.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1516280440614-6697288d5d38?auto=format&fit=crop&w=1200&q=80">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://beatforge.ai/album">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#6366f1',
-                        secondary: '#8b5cf6',
-                        accent: '#ec4899',
-                        dark: '#0f0f23',
-                        darker: '#070714'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Custom Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
     
     <style>
-        /* Album page specific styles */
-        .album-gradient {
-            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
-        }
-        
-        .vinyl-spin {
-            animation: spin 3s linear infinite;
-            animation-play-state: paused;
-        }
-        
-        .vinyl-spin.playing {
-            animation-play-state: running;
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .track-item {
-            transition: all 0.2s ease;
-        }
-        
-        .track-item:hover {
-            background: rgba(99, 102, 241, 0.1);
-            transform: translateX(4px);
-        }
-        
-        .track-item.active {
-            background: rgba(99, 102, 241, 0.2);
-            border-left: 3px solid #6366f1;
-        }
-        
-        .progress-bar {
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
-        }
-        
-        .visualizer-bar {
-            animation: pulse 0.5s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulse {
-            from { transform: scaleY(0.3); }
-            to { transform: scaleY(1); }
+        html, body {
+            background-color: #070714 !important;
+            color: #ffffff !important;
+            font-family: Inter, system-ui, sans-serif !important;
         }
     </style>
 </head>
-<body class="bg-darker text-white min-h-screen font-sans antialiased">
-    <!-- Navigation -->
+<body class="bg-darker text-white">
     <nav class="fixed top-0 left-0 right-0 z-50 bg-darker/90 backdrop-blur-xl border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center transform group-hover:scale-110 transition-transform">
-                        <span class="text-xl">🎵</span>
-                    </div>
-                    <span class="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                        BeatForge AI
-                    </span>
-                </a>
-                
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="index.html" class="text-gray-300 hover:text-white transition-colors font-medium">
-                        Inicio
-                    </a>
-                    <a href="index.html#albums" class="text-gray-300 hover:text-white transition-colors font-medium">
-                        Álbumes
-                    </a>
-                    <a href="maker.html" class="text-gray-300 hover:text-white transition-colors font-medium">
-                        Beat Maker
-                    </a>
-                    <a href="index.html#features" class="text-gray-300 hover:text-white transition-colors font-medium">
-                        Características
-                    </a>
-                </div>
-                
-                <!-- Language Selector & Mobile Menu -->
-                <div class="flex items-center gap-4">
-                    <!-- Language Dropdown -->
-                    <div class="relative">
-                        <button id="langBtn" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm">
-                            <span id="currentLang">🇪🇸 ES</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div id="langDropdown" class="absolute right-0 mt-2 w-40 bg-dark rounded-xl shadow-2xl border border-white/10 overflow-hidden opacity-0 invisible transition-all transform -translate-y-2">
-                            <button data-lang="es" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇪🇸 Español
-                            </button>
-                            <button data-lang="en" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇺🇸 English
-                            </button>
-                            <button data-lang="pt" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇧🇷 Português
-                            </button>
-                            <button data-lang="fr" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇫🇷 Français
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Mobile Menu Button -->
-                    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
                         </svg>
-                    </button>
+                    </div>
+                    <span class="text-xl font-bold text-white">BeatForge <span class="text-primary">AI</span></span>
+                </a>
+                
+                <div class="hidden lg:flex items-center gap-2">
+                    <a href="index.html" class="px-4 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                    <a href="albums.html" class="px-4 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-compact-disc"></i> Álbumes
+                    </a>
+                    <a href="maker.html" class="px-4 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 text-gray-300 hover:text-white">
+                        <i class="fas fa-music"></i> Music Creator
+                    </a>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="md:hidden hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
-            <div class="px-4 py-6 space-y-4">
-                <a href="index.html" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Inicio
-                </a>
-                <a href="index.html#albums" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Álbumes
-                </a>
-                <a href="maker.html" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Beat Maker
-                </a>
-                <a href="index.html#features" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Características
-                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="pt-20">
-        <!-- Album Header -->
-        <section class="album-gradient">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+    <main class="pt-32 pb-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Album Header -->
+            <div class="mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                     <!-- Album Cover -->
-                    <div class="w-full lg:w-96 flex-shrink-0">
-                        <div class="relative group">
-                            <img id="albumCover" 
-                                 src="https://images.unsplash.com/photo-1516280440614-6697288d5d38?auto=format&fit=crop&w=800&q=80" 
-                                 alt="Album Cover" 
-                                 class="w-full aspect-square object-cover rounded-2xl shadow-2xl shadow-primary/20 transition-transform group-hover:scale-[1.02]"
-                                 loading="eager">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="md:col-span-1">
+                        <div id="albumCover" class="aspect-square rounded-2xl overflow-hidden shadow-2xl mb-6">
+                            <img src="" alt="" class="w-full h-full object-cover">
                         </div>
+                        <button class="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-3">
+                            <i class="fas fa-play"></i>
+                            Reproducir Álbum
+                        </button>
                     </div>
                     
                     <!-- Album Info -->
-                    <div class="flex-1 space-y-6">
-                        <div>
-                            <span id="albumGenre" class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-3">
-                                Lo-Fi
-                            </span>
-                            <h1 id="albumTitle" class="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                                Midnight Coffee & Rain
-                            </h1>
-                            <p id="albumArtist" class="text-xl text-gray-400 mb-2">
-                                BeatForge AI Generator
-                            </p>
-                            <p id="albumDescription" class="text-gray-500 max-w-2xl">
-                                Sumérgete en una experiencia musical única generada proceduralmente. Cada reproducción crea una variación diferente mientras mantiene la esencia del género.
-                            </p>
+                    <div class="md:col-span-2">
+                        <div id="genreTag" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary font-semibold mb-4">
+                            <i class="fas fa-tag"></i>
+                            <span id="genre">Genre</span>
                         </div>
+                        
+                        <h1 id="albumTitle" class="text-4xl md:text-5xl font-bold mb-3">Album Title</h1>
+                        
+                        <p id="artistName" class="text-2xl text-gray-300 mb-6">Artist Name</p>
+                        
+                        <p id="albumDesc" class="text-gray-400 leading-relaxed mb-8 text-lg"></p>
                         
                         <!-- Album Stats -->
-                        <div class="flex flex-wrap gap-6 text-sm text-gray-400">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-                                </svg>
-                                <span id="trackCount">12 pistas</span>
+                        <div class="grid grid-cols-3 gap-4 p-6 bg-white/5 border border-white/10 rounded-xl">
+                            <div class="text-center">
+                                <div id="trackCount" class="text-2xl font-bold text-primary">12</div>
+                                <div class="text-sm text-gray-400">Pistas</div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                <span>∞ Variaciones</span>
+                            <div class="text-center">
+                                <div id="yearRelease" class="text-2xl font-bold text-secondary">2025</div>
+                                <div class="text-sm text-gray-400">Año</div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                </svg>
-                                <span>Generación en vivo</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Action Buttons -->
-                        <div class="flex flex-wrap gap-4 pt-4">
-                            <button id="playAllBtn" class="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-xl font-semibold hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/25">
-                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z"/>
-                                </svg>
-                                Reproducir Todo
-                            </button>
-                            <button id="shuffleBtn" class="flex items-center gap-3 px-6 py-4 bg-white/10 rounded-xl font-semibold hover:bg-white/20 transition-all">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                                </svg>
-                                Aleatorio
-                            </button>
-                            <button id="favoriteBtn" class="p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-all group">
-                                <svg class="w-5 h-5 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Player & Tracklist Section -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Tracklist -->
-                <div class="lg:col-span-2">
-                    <div class="bg-dark/50 rounded-2xl border border-white/5 overflow-hidden">
-                        <div class="p-6 border-b border-white/5">
-                            <h2 class="text-xl font-semibold">Lista de Pistas</h2>
-                        </div>
-                        <div id="trackList" class="divide-y divide-white/5">
-                            <!-- Tracks will be rendered here -->
-                            <div class="p-6 text-center text-gray-500">
-                                <div class="animate-pulse flex flex-col items-center gap-4">
-                                    <div class="w-12 h-12 bg-white/10 rounded-full"></div>
-                                    <p>Cargando pistas...</p>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-accent">
+                                    <i class="fas fa-shield-alt"></i>
                                 </div>
+                                <div class="text-sm text-gray-400">Sin Copyright</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Now Playing / Visualizer -->
-                <div class="lg:col-span-1">
-                    <div class="bg-dark/50 rounded-2xl border border-white/5 p-6 sticky top-24">
-                        <h3 class="text-lg font-semibold mb-4">Reproduciendo Ahora</h3>
-                        
-                        <!-- Mini Visualizer -->
-                        <div id="visualizer" class="h-32 bg-darker rounded-xl flex items-end justify-center gap-1 p-4 mb-6 overflow-hidden">
-                            <!-- Visualizer bars will be rendered here -->
-                            <div class="text-center text-gray-500 text-sm w-full flex items-center justify-center h-full">
-                                <p>Selecciona una pista para comenzar</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Current Track Info -->
-                        <div id="nowPlaying" class="space-y-4">
-                            <div class="flex items-center gap-4">
-                                <div id="nowPlayingCover" class="w-16 h-16 bg-white/10 rounded-lg flex items-center justify-center overflow-hidden">
-                                    <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-                                    </svg>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p id="nowPlayingTitle" class="font-medium truncate">Ninguna pista seleccionada</p>
-                                    <p id="nowPlayingArtist" class="text-sm text-gray-400 truncate">-</p>
-                                    <p id="nowPlayingSource" class="text-xs text-gray-500 truncate">Fuente: —</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Progress Bar -->
-                            <div class="space-y-2">
-                                <div id="progressContainer" class="h-1.5 bg-white/10 rounded-full overflow-hidden cursor-pointer">
-                                    <div id="progressBar" class="h-full progress-bar rounded-full w-0 transition-all"></div>
-                                </div>
-                                <div class="flex justify-between text-xs text-gray-500">
-                                    <span id="currentTime">0:00</span>
-                                    <span id="duration">0:00</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Player Controls -->
-                            <div class="flex items-center justify-center gap-2">
-                                <!-- Skip backward 10s -->
-                                <button id="skipBackBtn" class="p-2 hover:bg-white/10 rounded-full transition-colors" title="Retroceder 10s">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12.5 3C17.15 3 21.08 6.03 22.47 10.22L20.1 11C19.05 7.81 16.04 5.5 12.5 5.5C10.54 5.5 8.77 6.22 7.38 7.38L10 10H3V3l2.6 2.6C7.45 4 9.85 3 12.5 3zM10 12v2H8v-2h2zm2 0h2v2h-2v-2zm-2 4v2H8v-2h2zm2 0h2v2h-2v-2z"/>
-                                    </svg>
-                                </button>
-                                <button id="prevBtn" class="p-2 hover:bg-white/10 rounded-full transition-colors">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
-                                    </svg>
-                                </button>
-                                <button id="playPauseBtn" class="p-4 bg-gradient-to-r from-primary to-secondary rounded-full hover:opacity-90 transition-all hover:scale-105">
-                                    <svg id="playIcon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <svg id="pauseIcon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                                    </svg>
-                                </button>
-                                <button id="nextBtn" class="p-2 hover:bg-white/10 rounded-full transition-colors">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
-                                    </svg>
-                                </button>
-                                <!-- Skip forward 10s -->
-                                <button id="skipForwardBtn" class="p-2 hover:bg-white/10 rounded-full transition-colors" title="Adelantar 10s">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M11.5 3C6.85 3 2.92 6.03 1.53 10.22L3.9 11C4.95 7.81 7.96 5.5 11.5 5.5C13.46 5.5 15.23 6.22 16.62 7.38L14 10H21V3l-2.6 2.6C16.55 4 14.15 3 11.5 3zM14 12v2h2v-2h-2zm-2 0h-2v2h2v-2zm2 4v2h2v-2h-2zm-2 0h-2v2h2v-2z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <!-- Volume Control -->
-                            <div class="flex items-center gap-3 pt-2">
-                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-                                </svg>
-                                <input id="volumeSlider" type="range" min="0" max="100" value="70" 
-                                       class="flex-1 h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer
-                                              [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
-                                              [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer
-                                              [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-white 
-                                              [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-0">
-                                <span id="volumeValue" class="text-sm text-gray-400 w-8 text-right">70%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Related Albums Section -->
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <h2 class="text-2xl font-bold mb-8">Álbumes Relacionados</h2>
-            <div id="relatedAlbums" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                <!-- Related albums will be rendered here -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark/50 border-t border-white/5 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Brand -->
-                <div class="md:col-span-2">
-                    <a href="index.html" class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
-                            <span class="text-xl">🎵</span>
-                        </div>
-                        <span class="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                            BeatForge AI
-                        </span>
-                    </a>
-                    <p class="text-gray-400 max-w-md mb-6">
-                        Música generada proceduralmente con inteligencia artificial. Cada reproducción es una experiencia única.
-                    </p>
-                    <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors" aria-label="Twitter">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors" aria-label="Instagram">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors" aria-label="YouTube">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors" aria-label="GitHub">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Links -->
-                <div>
-                    <h3 class="font-semibold mb-4">Navegación</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="index.html" class="hover:text-white transition-colors">Inicio</a></li>
-                        <li><a href="index.html#albums" class="hover:text-white transition-colors">Álbumes</a></li>
-                        <li><a href="maker.html" class="hover:text-white transition-colors">Beat Maker</a></li>
-                        <li><a href="index.html#features" class="hover:text-white transition-colors">Características</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Legal -->
-                <div>
-                    <h3 class="font-semibold mb-4">Legal</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Privacidad</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Términos</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Licencias</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
-                    </ul>
+                <!-- Tags -->
+                <div id="tags" class="flex flex-wrap gap-2 mb-8">
+                    <!-- Tags will be populated -->
                 </div>
             </div>
             
-            <div class="border-t border-white/5 mt-12 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2025 BeatForge AI. Todos los derechos reservados. Música generada con ❤️ e IA.</p>
+            <!-- YouTube Integration Section -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <i class="fas fa-play-circle text-primary"></i>
+                    Reproducción Integrada
+                </h2>
+                
+                <div class="bg-dark/50 border border-white/10 rounded-2xl p-8">
+                    <p class="text-gray-400 mb-6">
+                        Para reproducir este álbum, estamos integrando la API de YouTube. Cada pista será reproducida desde fuentes verificadas.
+                    </p>
+                    <div id="playerContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="flex items-center justify-center p-12 bg-white/5 border border-white/10 rounded-xl">
+                            <div class="text-center">
+                                <i class="fas fa-play-circle text-6xl text-primary mb-4 opacity-30"></i>
+                                <p class="text-gray-400">Reproductor de YouTube integrado</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-bold mb-4">Información de la Reproducción</h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                                    <i class="fas fa-music text-primary"></i>
+                                    <span>Calidad: 320kbps (Estimado)</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                                    <i class="fas fa-check-circle text-primary"></i>
+                                    <span>100% Libre de Derechos</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                                    <i class="fas fa-download text-primary"></i>
+                                    <span>Apto para Descarga (Próximamente)</span>
+                                </div>
+                                <div class="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                                    <i class="fas fa-video text-primary"></i>
+                                    <span>Apto para Videos & Streams</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Tracklist -->
+            <section class="mb-16">
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <i class="fas fa-list text-secondary"></i>
+                    Lista de Pistas
+                </h2>
+                
+                <div id="tracklist" class="space-y-2 bg-dark/50 border border-white/10 rounded-2xl overflow-hidden">
+                    <!-- Tracks will be populated -->
+                </div>
+            </section>
+            
+            <!-- Related Albums -->
+            <section>
+                <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                    <i class="fas fa-record-vinyl text-accent"></i>
+                    Álbumes Relacionados
+                </h2>
+                
+                <div id="relatedAlbums" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Related albums will be populated -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-dark/50 border-t border-white/5 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="text-center">
+                <p>&copy; 2025 BeatForge AI. Todos los derechos reservados. Música 100% sin copyright.</p>
+                <div class="flex justify-center gap-4 mt-6">
+                    <a href="index.html" class="text-gray-400 hover:text-white transition-colors">Inicio</a>
+                    <a href="albums.html" class="text-gray-400 hover:text-white transition-colors">Álbumes</a>
+                    <a href="privacy.html" class="text-gray-400 hover:text-white transition-colors">Privacidad</a>
+                    <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contacto</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Toast Notification Container -->
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2"></div>
-
-    <!-- Scripts -->
     <script type="module">
         import { albums } from './js/data.js';
-        import { MusicPlayer } from './js/player.js';
         
         // Get album ID from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const albumId = urlParams.get('id') || 'lofi-dreams';
+        const params = new URLSearchParams(window.location.search);
+        const albumId = params.get('id') || 'lofi-dreams';
         
-        // Find album data
-        const album = albums.find(a => a.id === albumId) || albums[0];
+        // Find album
+        const album = albums.find(a => a.id === albumId);
         
-        // Initialize player
-        let player = null;
-        let currentTrackIndex = 0;
-        let isPlaying = false;
-        // Audio manifest mapping (optional)
-        window.audioManifest = null;
-        (async function loadAudioManifest(){
-            try {
-                const res = await fetch('audio/manifest.json', { cache: 'no-cache' });
-                if (res.ok) {
-                    window.audioManifest = await res.json();
-                    console.log('Loaded audio/manifest.json');
-                }
-            } catch(e) {
-                // no manifest present
-            }
-        })();
-        
-        // DOM Elements
-        const albumCover = document.getElementById('albumCover');
-        const albumTitle = document.getElementById('albumTitle');
-        const albumGenre = document.getElementById('albumGenre');
-        const albumDescription = document.getElementById('albumDescription');
-        const trackList = document.getElementById('trackList');
-        const trackCount = document.getElementById('trackCount');
-        const relatedAlbums = document.getElementById('relatedAlbums');
-        const playAllBtn = document.getElementById('playAllBtn');
-        const shuffleBtn = document.getElementById('shuffleBtn');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressContainer = document.getElementById('progressContainer');
-        const progressBar = document.getElementById('progressBar');
-        const currentTimeEl = document.getElementById('currentTime');
-        const durationEl = document.getElementById('duration');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumeValue = document.getElementById('volumeValue');
-        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
-        const nowPlayingArtist = document.getElementById('nowPlayingArtist');
-        const nowPlayingCover = document.getElementById('nowPlayingCover');
-        const nowPlayingSource = document.getElementById('nowPlayingSource');
-        const visualizer = document.getElementById('visualizer');
-        
-        // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        
-        mobileMenuBtn?.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        langBtn?.addEventListener('click', () => {
-            langDropdown.classList.toggle('opacity-0');
-            langDropdown.classList.toggle('invisible');
-            langDropdown.classList.toggle('-translate-y-2');
-        });
-        
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!langBtn?.contains(e.target) && !langDropdown?.contains(e.target)) {
-                langDropdown?.classList.add('opacity-0', 'invisible', '-translate-y-2');
-            }
-        });
-        
-        // Update page with album data
-        function updateAlbumInfo() {
-            document.title = `${album.title} - BeatForge AI`;
-            albumCover.src = album.cover;
-            albumCover.alt = album.title;
-            albumTitle.textContent = album.title;
-            albumGenre.textContent = album.genre;
-            albumDescription.textContent = album.description || 'Sumérgete en una experiencia musical única generada proceduralmente.';
-            trackCount.textContent = `${album.songs.length} pistas`;
+        if (!album) {
+            document.body.innerHTML = '<div class="flex items-center justify-center h-screen text-white"><div class="text-center"><h1 class="text-4xl font-bold mb-4">Álbum no encontrado</h1><a href="albums.html" class="text-primary hover:text-secondary">Volver a Álbumes</a></div></div>';
+        } else {
+            // Update page metadata
+            document.title = `${album.title} | ${album.artist} | BeatForge AI`;
+            document.getElementById('pageTitle').textContent = `${album.title} | BeatForge AI`;
+            document.getElementById('pageDesc').content = album.seoDescription;
+            document.getElementById('ogTitle').content = `${album.title} - ${album.artist}`;
+            document.getElementById('ogDesc').content = album.seoDescription;
+            document.getElementById('ogImage').content = album.cover;
             
-            // Update meta tags
-            document.querySelector('meta[property="og:title"]')?.setAttribute('content', `${album.title} - BeatForge AI`);
-            document.querySelector('meta[property="og:image"]')?.setAttribute('content', album.cover);
-        }
-        
-        // Render track list
-        function renderTrackList() {
-            trackList.innerHTML = album.songs.map((song, index) => `
-                <div class="track-item flex items-center gap-4 p-4 cursor-pointer" data-index="${index}">
-                    <span class="w-8 text-center text-gray-500 font-medium">${index + 1}</span>
-                    <div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                        <img src="${album.cover}" alt="${song.title}" class="w-full h-full object-cover">
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="font-medium truncate">${song.title}</p>
-                        <p class="text-sm text-gray-400 truncate">${album.artist || 'BeatForge AI'}</p>
-                    </div>
-                    <span class="text-sm text-gray-500">${song.duration || '∞'}</span>
-                    <button class="track-play-btn p-2 rounded-full hover:bg-white/10 opacity-0 group-hover:opacity-100 transition-all">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </button>
-                </div>
-            `).join('');
+            // Update album info
+            document.getElementById('albumCover').querySelector('img').src = album.cover;
+            document.getElementById('albumCover').querySelector('img').alt = `${album.title} - ${album.artist}`;
+            document.getElementById('albumTitle').textContent = album.title;
+            document.getElementById('artistName').textContent = album.artist;
+            document.getElementById('genre').textContent = album.genre;
+            document.getElementById('albumDesc').textContent = album.description;
+            document.getElementById('trackCount').textContent = album.songs.length;
+            document.getElementById('yearRelease').textContent = album.year;
             
-            // Add click handlers
-            trackList.querySelectorAll('.track-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const index = parseInt(item.dataset.index);
-                    playTrack(index);
-                });
+            // Populate tags
+            const tagsContainer = document.getElementById('tags');
+            album.tags.forEach(tag => {
+                const tagEl = document.createElement('span');
+                tagEl.className = 'inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-gray-300 text-sm font-medium';
+                tagEl.innerHTML = `<i class="fas fa-music"></i>${tag}`;
+                tagsContainer.appendChild(tagEl);
             });
-        }
-        
-        // Render related albums
-        function renderRelatedAlbums() {
-            const related = albums.filter(a => a.id !== album.id).slice(0, 5);
-            relatedAlbums.innerHTML = related.map(a => `
-                <a href="album.html?id=${a.id}" class="group">
-                    <div class="relative aspect-square rounded-xl overflow-hidden mb-3">
-                        <img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                            <span class="text-sm font-medium">${a.genre}</span>
+            
+            // Populate tracklist
+            const tracklist = document.getElementById('tracklist');
+            album.songs.forEach((song, index) => {
+                const trackEl = document.createElement('div');
+                trackEl.className = 'px-6 py-4 border-b border-white/5 hover:bg-white/5 transition-colors flex items-center justify-between group cursor-pointer';
+                trackEl.innerHTML = `
+                    <div class="flex items-center gap-4 flex-1">
+                        <div class="text-gray-500 font-semibold w-8">${String(index + 1).padStart(2, '0')}</div>
+                        <div class="flex-1">
+                            <div class="font-semibold">${song.title}</div>
+                            <div class="text-sm text-gray-500">${song.bpm} BPM</div>
                         </div>
                     </div>
-                    <h3 class="font-medium text-sm truncate group-hover:text-primary transition-colors">${a.title}</h3>
-                </a>
-            `).join('');
-        }
-        
-        // Initialize visualizer bars
-        function initVisualizer() {
-            visualizer.innerHTML = Array(20).fill(0).map((_, i) => `
-                <div class="visualizer-bar w-1.5 bg-gradient-to-t from-primary to-accent rounded-full" 
-                     style="height: 20%; animation-delay: ${i * 0.05}s; animation-play-state: paused;"></div>
-            `).join('');
-        }
-        
-        // Update visualizer
-        function updateVisualizer(playing) {
-            visualizer.querySelectorAll('.visualizer-bar').forEach(bar => {
-                bar.style.animationPlayState = playing ? 'running' : 'paused';
-                if (playing) {
-                    bar.style.height = `${20 + Math.random() * 80}%`;
-                }
-            });
-        }
-        
-        // Simple HTMLAudioElement used when a local MP3 is available
-        let htmlAudio = null;
-        let htmlAudioTimer = null;
-
-        // Check if a remote/local file exists (HEAD request)
-        async function fileExists(url) {
-            try {
-                const res = await fetch(url, { method: 'HEAD' });
-                return res.ok;
-            } catch (e) {
-                return false;
-            }
-        }
-
-        // Try common filename patterns in the audio/ folder
-        async function findLocalMP3(track, index) {
-            const nameSafe = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-            // If an audio manifest exists, prefer it (still optional)
-            try {
-                if (window.audioManifest && window.audioManifest[album.id]) {
-                    const list = window.audioManifest[album.id];
-                    const byIndex = list[index];
-                    if (byIndex) return byIndex;
-                    const titleMatch = list.find(p => p.toLowerCase().includes(nameSafe(track.title)));
-                    if (titleMatch) return titleMatch;
-                }
-            } catch (e) {
-                // ignore
-            }
-
-            // Try common filename patterns (padded and unpadded), several extensions
-            const idxNum = index + 1;
-            const idxPadded = String(idxNum).padStart(2, '0');
-            const exts = ['mp3', 'wav', 'ogg'];
-            const candidates = [];
-
-            // folder-based patterns: audio/<album-id>/01.mp3, audio/<album-id>/1.mp3, audio/<album-id>/track-title.mp3
-            for (const ext of exts) {
-                candidates.push(`audio/${album.id}/${idxPadded}.${ext}`);
-                candidates.push(`audio/${album.id}/${idxNum}.${ext}`);
-                candidates.push(`audio/${album.id}/${nameSafe(track.title)}.${ext}`);
-            }
-
-            // root-based patterns: audio/albumid-01.mp3, audio/albumid-1.mp3, audio/track-title.mp3
-            for (const ext of exts) {
-                candidates.push(`audio/${album.id}-${idxPadded}.${ext}`);
-                candidates.push(`audio/${album.id}-${idxNum}.${ext}`);
-                candidates.push(`audio/${nameSafe(track.title)}.${ext}`);
-            }
-
-            // Try candidates in order; HEAD check to avoid full download
-            for (const c of candidates) {
-                if (await fileExists(c)) return c;
-            }
-
-            return null;
-        }
-
-        // Play track
-        async function playTrack(index) {
-            currentTrackIndex = index;
-            const track = album.songs[index];
-            
-            // Update UI
-            trackList.querySelectorAll('.track-item').forEach((item, i) => {
-                item.classList.toggle('active', i === index);
+                    <div class="flex items-center gap-4">
+                        <span class="text-gray-500 text-sm">${song.duration}</span>
+                        <button class="opacity-0 group-hover:opacity-100 transition-opacity text-primary hover:text-secondary">
+                            <i class="fas fa-play-circle text-xl"></i>
+                        </button>
+                    </div>
+                `;
+                tracklist.appendChild(trackEl);
             });
             
-            nowPlayingTitle.textContent = track.title;
-            nowPlayingArtist.textContent = album.artist || 'BeatForge AI';
-            nowPlayingCover.innerHTML = `<img src="${album.cover}" alt="${track.title}" class="w-full h-full object-cover">`;
-            if (nowPlayingSource) nowPlayingSource.textContent = 'Fuente: —';
-            
-            // If there's a local MP3 matching common patterns, play it via HTMLAudioElement
-            try {
-                const mp3 = await findLocalMP3(track, index);
-                if (mp3) {
-                    // Stop any previous htmlAudio
-                    if (htmlAudio) {
-                        htmlAudio.pause();
-                        htmlAudio.src = '';
-                        htmlAudio = null;
-                    }
-
-                    htmlAudio = new Audio(mp3);
-                    htmlAudio.crossOrigin = 'anonymous';
-                    htmlAudio.volume = (volumeSlider ? volumeSlider.value : 70) / 100;
-
-                    // Time updates for progress UI
-                    htmlAudio.addEventListener('timeupdate', () => {
-                        const current = htmlAudio.currentTime || 0;
-                        const total = htmlAudio.duration || 0;
-                        const progress = total > 0 ? (current / total) * 100 : 0;
-                        progressBar.style.width = `${progress}%`;
-                        currentTimeEl.textContent = formatTime(current);
-                        durationEl.textContent = formatTime(total);
-                    });
-
-                    htmlAudio.addEventListener('ended', () => {
-                        playNext();
-                    });
-
-                    await htmlAudio.play();
-                    isPlaying = true;
-                    updatePlayButton(true);
-                    updateVisualizer(true);
-                    if (nowPlayingSource) nowPlayingSource.textContent = 'Fuente: ' + mp3;
-                    showToast('Reproduciendo archivo local: ' + mp3, 'success');
-                    return;
-                }
-            } catch (err) {
-                console.warn('Local MP3 check failed:', err);
-            }
-
-            // Fall back to procedural player if no local file
-            // Initialize player if needed
-            if (!player) {
-                try {
-                    player = new MusicPlayer({
-                        genre: album.genre.toLowerCase(),
-                        onTimeUpdate: (current, total) => {
-                            const progress = total > 0 ? (current / total) * 100 : 0;
-                            progressBar.style.width = `${progress}%`;
-                            currentTimeEl.textContent = formatTime(current);
-                            durationEl.textContent = formatTime(total);
-                        },
-                        onEnded: () => {
-                            playNext();
-                        }
-                    });
-                    await player.init();
-                } catch (error) {
-                    console.error('Error initializing player:', error);
-                    showToast('Error al inicializar el reproductor', 'error');
-                    return;
-                }
-            }
-
-            // Start playing with procedural generator
-            try {
-                await player.play(track);
-                isPlaying = true;
-                updatePlayButton(true);
-                updateVisualizer(true);
-                if (nowPlayingSource) nowPlayingSource.textContent = 'Fuente: Procedural (generado)';
-            } catch (error) {
-                console.error('Error playing track:', error);
-                showToast('Error al reproducir la pista', 'error');
-            }
+            // Populate related albums
+            const relatedContainer = document.getElementById('relatedAlbums');
+            const relatedAlbums = albums.filter(a => a.id !== albumId).slice(0, 4);
+            relatedAlbums.forEach(relatedAlbum => {
+                const cardEl = document.createElement('a');
+                cardEl.href = `album.html?id=${relatedAlbum.id}`;
+                cardEl.className = 'group rounded-2xl overflow-hidden bg-dark/50 border border-white/10 hover:border-primary/50 transition-all hover:-translate-y-2';
+                cardEl.innerHTML = `
+                    <div class="aspect-square overflow-hidden relative">
+                        <img src="${relatedAlbum.cover}" alt="${relatedAlbum.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs font-bold text-primary mb-2 uppercase">${relatedAlbum.genre}</div>
+                        <h3 class="font-bold mb-1 group-hover:text-primary transition line-clamp-1">${relatedAlbum.title}</h3>
+                        <p class="text-gray-400 text-sm">${relatedAlbum.artist}</p>
+                    </div>
+                `;
+                relatedContainer.appendChild(cardEl);
+            });
         }
-
-        // Seek by clicking the progress bar
-        progressContainer?.addEventListener('click', (e) => {
-            const rect = progressContainer.getBoundingClientRect();
-            const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
-            // If using htmlAudio, seek it directly
-            if (htmlAudio && htmlAudio.duration && isFinite(htmlAudio.duration)) {
-                htmlAudio.currentTime = ratio * htmlAudio.duration;
-                return;
-            }
-            if (!player || !player.getDuration()) return;
-            player.seek(ratio);
-        });
-        
-        // Play/Pause toggle
-        function togglePlay() {
-            // If htmlAudio is active, toggle it
-            if (htmlAudio) {
-                if (!isPlaying) {
-                    htmlAudio.play();
-                    isPlaying = true;
-                } else {
-                    htmlAudio.pause();
-                    isPlaying = false;
-                }
-
-                updatePlayButton(isPlaying);
-                updateVisualizer(isPlaying);
-                return;
-            }
-
-            if (!player) {
-                playTrack(0);
-                return;
-            }
-
-            if (isPlaying) {
-                player.pause();
-                isPlaying = false;
-            } else {
-                player.resume();
-                isPlaying = true;
-            }
-
-            updatePlayButton(isPlaying);
-            updateVisualizer(isPlaying);
-        }
-        
-        // Update play button state
-        function updatePlayButton(playing) {
-            playIcon.classList.toggle('hidden', playing);
-            pauseIcon.classList.toggle('hidden', !playing);
-        }
-        
-        // Play next track
-        function playNext() {
-            const nextIndex = (currentTrackIndex + 1) % album.songs.length;
-            playTrack(nextIndex);
-        }
-        
-        // Play previous track
-        function playPrev() {
-            const prevIndex = currentTrackIndex === 0 ? album.songs.length - 1 : currentTrackIndex - 1;
-            playTrack(prevIndex);
-        }
-        
-        // Shuffle play
-        function shufflePlay() {
-            const randomIndex = Math.floor(Math.random() * album.songs.length);
-            playTrack(randomIndex);
-        }
-        
-        // Format time
-        function formatTime(seconds) {
-            if (!seconds || isNaN(seconds)) return '0:00';
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-        
-        // Show toast notification
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `px-4 py-3 rounded-lg shadow-lg ${
-                type === 'error' ? 'bg-red-500' : 
-                type === 'success' ? 'bg-green-500' : 'bg-primary'
-            } text-white animate-fade-in`;
-            toast.textContent = message;
-            
-            const container = document.getElementById('toastContainer');
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'transition-opacity');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-        
-        // Volume control
-        volumeSlider?.addEventListener('input', (e) => {
-            const value = e.target.value;
-            volumeValue.textContent = `${value}%`;
-            if (player) {
-                player.setVolume(value / 100);
-            }
-            if (htmlAudio) {
-                htmlAudio.volume = value / 100;
-            }
-        });
-        
-        // Event listeners
-        playAllBtn?.addEventListener('click', () => playTrack(0));
-        shuffleBtn?.addEventListener('click', shufflePlay);
-        playPauseBtn?.addEventListener('click', togglePlay);
-        prevBtn?.addEventListener('click', playPrev);
-        nextBtn?.addEventListener('click', playNext);
-        
-        // Skip forward/backward buttons
-        document.getElementById('skipBackBtn')?.addEventListener('click', () => {
-            if (player) player.skip(-10);
-        });
-        document.getElementById('skipForwardBtn')?.addEventListener('click', () => {
-            if (player) player.skip(10);
-        });
-        
-        // Initialize page
-        updateAlbumInfo();
-        renderTrackList();
-        renderRelatedAlbums();
-        initVisualizer();
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT') return;
-            
-            switch(e.code) {
-                case 'Space':
-                    e.preventDefault();
-                    togglePlay();
-                    break;
-                case 'ArrowRight':
-                    if (e.shiftKey) {
-                        // Shift+Right: Skip forward 10s
-                        if (player) player.skip(10);
-                    } else {
-                        playNext();
-                    }
-                    break;
-                case 'ArrowLeft':
-                    if (e.shiftKey) {
-                        // Shift+Left: Skip backward 10s
-                        if (player) player.skip(-10);
-                    } else {
-                        playPrev();
-                    }
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    if (player && volumeSlider) {
-                        const newVol = Math.min(100, parseInt(volumeSlider.value) + 10);
-                        volumeSlider.value = newVol;
-                        volumeValue.textContent = `${newVol}%`;
-                        player.setVolume(newVol / 100);
-                    }
-                    break;
-                case 'ArrowDown':
-                    e.preventDefault();
-                    if (player && volumeSlider) {
-                        const newVol = Math.max(0, parseInt(volumeSlider.value) - 10);
-                        volumeSlider.value = newVol;
-                        volumeValue.textContent = `${newVol}%`;
-                        player.setVolume(newVol / 100);
-                    }
-                    break;
-            }
-        });
     </script>
 </body>
 </html>
