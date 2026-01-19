@@ -85,8 +85,13 @@ export function createNavigation(currentPage = 'index', lang = 'es') {
                     </span>
                 </a>
                 
+<<<<<<< HEAD
                 <!-- Desktop Navigation (simplified) -->
                 <div class="hidden lg:flex items-center gap-2">
+=======
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center gap-1">
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
                     <a href="index${suffix}.html" class="nav-link ${currentPage === 'index' ? 'active text-white font-semibold' : 'text-gray-300'} px-3 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2" ${currentPage === 'index' ? 'aria-current="page"' : ''}>
                         <i class="fas fa-home text-sm"></i>
                         ${t.home}
@@ -99,10 +104,15 @@ export function createNavigation(currentPage = 'index', lang = 'es') {
                         <i class="fas fa-music text-sm"></i>
                         ${t.maker}
                     </a>
+<<<<<<< HEAD
+=======
+                    <div class="h-6 w-px bg-white/10 mx-1"></div>
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
                     <a href="shop${suffix}.html" class="nav-link ${currentPage === 'shop' ? 'active text-white font-semibold' : 'text-gray-300'} px-3 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2" ${currentPage === 'shop' ? 'aria-current="page"' : ''}>
                         <i class="fas fa-shopping-bag text-sm"></i>
                         ${t.shop}
                     </a>
+<<<<<<< HEAD
 
                     <!-- More dropdown for secondary links -->
                     <div class="relative">
@@ -117,6 +127,20 @@ export function createNavigation(currentPage = 'index', lang = 'es') {
                         </div>
                     </div>
 
+=======
+                    <a href="partners${suffix}.html" class="nav-link ${currentPage === 'partners' ? 'active text-white font-semibold' : 'text-gray-300'} px-3 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2" ${currentPage === 'partners' ? 'aria-current="page"' : ''}>
+                        <i class="fas fa-handshake text-sm"></i>
+                        ${t.partners}
+                    </a>
+                    <a href="blog${suffix}.html" class="nav-link ${currentPage === 'blog' ? 'active text-white font-semibold' : 'text-gray-300'} px-3 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2" ${currentPage === 'blog' ? 'aria-current="page"' : ''}>
+                        <i class="fas fa-pen-fancy text-sm"></i>
+                        ${t.blog}
+                    </a>
+                    <a href="about${suffix}.html" class="nav-link ${currentPage === 'about' ? 'active text-white font-semibold' : 'text-gray-300'} px-3 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2" ${currentPage === 'about' ? 'aria-current="page"' : ''}>
+                        <i class="fas fa-circle-info text-sm"></i>
+                        ${t.about}
+                    </a>
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
                     <a href="contact${suffix}.html" class="nav-link ${currentPage === 'contact' ? 'active text-white font-semibold' : 'text-gray-300'} px-3 py-2 rounded-lg hover:bg-white/5 transition-all flex items-center gap-2" ${currentPage === 'contact' ? 'aria-current="page"' : ''}>
                         <i class="fas fa-envelope text-sm"></i>
                         ${t.contact}
@@ -162,10 +186,16 @@ export function createNavigation(currentPage = 'index', lang = 'es') {
             </div>
         </div>
         
+<<<<<<< HEAD
         <!-- Mobile Menu (primary + More group) -->
         <div id="mobileMenu" class="lg:hidden hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
             <div class="px-4 py-6 space-y-2">
                 <!-- Primary Links -->
+=======
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
+            <div class="px-4 py-6 space-y-2">
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
                 <a href="index${suffix}.html" class="block px-4 py-3 rounded-lg ${currentPage === 'index' ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'} transition-colors font-medium flex items-center gap-2">
                     <i class="fas fa-home"></i>
                     ${t.home}
@@ -178,17 +208,37 @@ export function createNavigation(currentPage = 'index', lang = 'es') {
                     <i class="fas fa-music"></i>
                     ${t.maker}
                 </a>
+<<<<<<< HEAD
 
                 <div class="h-px bg-white/10 my-2"></div>
 
+=======
+                <div class="h-px bg-white/10 my-2"></div>
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
                 <a href="shop${suffix}.html" class="block px-4 py-3 rounded-lg ${currentPage === 'shop' ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'} transition-colors font-medium flex items-center gap-2">
                     <i class="fas fa-shopping-bag"></i>
                     ${t.shop}
                 </a>
+<<<<<<< HEAD
+=======
+                <a href="partners${suffix}.html" class="block px-4 py-3 rounded-lg ${currentPage === 'partners' ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'} transition-colors font-medium flex items-center gap-2">
+                    <i class="fas fa-handshake"></i>
+                    ${t.partners}
+                </a>
+                <a href="blog${suffix}.html" class="block px-4 py-3 rounded-lg ${currentPage === 'blog' ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'} transition-colors font-medium flex items-center gap-2">
+                    <i class="fas fa-pen-fancy"></i>
+                    ${t.blog}
+                </a>
+                <a href="about${suffix}.html" class="block px-4 py-3 rounded-lg ${currentPage === 'about' ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'} transition-colors font-medium flex items-center gap-2">
+                    <i class="fas fa-circle-info"></i>
+                    ${t.about}
+                </a>
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
                 <a href="contact${suffix}.html" class="block px-4 py-3 rounded-lg ${currentPage === 'contact' ? 'bg-primary/20 text-primary' : 'hover:bg-white/5'} transition-colors font-medium flex items-center gap-2">
                     <i class="fas fa-envelope"></i>
                     ${t.contact}
                 </a>
+<<<<<<< HEAD
 
                 <!-- More group collapsed by default -->
                 <div>
@@ -202,6 +252,8 @@ export function createNavigation(currentPage = 'index', lang = 'es') {
                         <a href="about${suffix}.html" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">${t.about}</a>
                     </div>
                 </div>
+=======
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
             </div>
         </div>
     </nav>
@@ -457,6 +509,7 @@ export function initializeNavigation() {
                 mobileMenuBtn.setAttribute('aria-expanded', 'false');
             });
         });
+<<<<<<< HEAD
 
         // Mobile 'More' collapse
         const mobileMoreBtn = document.getElementById('mobileMoreBtn');
@@ -467,6 +520,8 @@ export function initializeNavigation() {
                 mobileMoreBtn.setAttribute('aria-expanded', !isHidden);
             });
         }
+=======
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
     }
     
     // Language dropdown
@@ -504,6 +559,7 @@ export function initializeNavigation() {
                 localStorage.setItem('beatforge_language', lang);
             });
         });
+<<<<<<< HEAD
         
         // 'More' dropdown - secondary navigation (Blog, Partners, About)
         const moreBtn = document.getElementById('moreBtn');
@@ -531,6 +587,8 @@ export function initializeNavigation() {
                 }
             });
         }
+=======
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
     }
     
     // Smooth scroll for anchor links

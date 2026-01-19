@@ -810,6 +810,7 @@ textarea:focus-visible {
 }
 
 /* ============================================
+<<<<<<< HEAD
    CONTRAST & LEGIBILITY OVERRIDES (Accessibility fixes)
    These overrides ensure Tailwind utility classes used across the site
    maintain sufficient contrast on our dark backgrounds.
@@ -852,6 +853,8 @@ nav .nav-link:hover { color: var(--color-text-primary) !important; }
 
 
 /* ============================================
+=======
+>>>>>>> 99babcb47acba6ce3f1b3080978205561e83b8db
    RESPONSIVE DESIGN
    ============================================ */
 @media (max-width: 768px) {
