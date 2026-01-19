@@ -1,600 +1,80 @@
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- Primary Meta Tags -->
-    <title>BeatForge Studio - Creador de Música Online | DAW Gratis con IA</title>
-    <meta name="title" content="BeatForge Studio - Creador de Música Online | DAW Gratis con IA">
-    <meta name="description" content="Crea música profesional al instante con nuestro Beat Maker potenciado por IA. Sin descargas. Explora 10 álbumes exclusivos de Lo-Fi, Trap, Synthwave, Techno y más géneros.">
-    <meta name="keywords" content="beat maker, generador de música, ai music, lofi beats, trap beats, synthwave, música libre de derechos, beat maker online, beats gratis, producción musical">
-    <meta name="author" content="BeatForge AI">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="Spanish">
-    <meta name="revisit-after" content="7 days">
-    <link rel="canonical" href="https://beatforge.ai/">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://beatforge.ai/">
-    <meta property="og:title" content="BeatForge AI - Música Procedural con IA">
-    <meta property="og:description" content="Crea música profesional al instante con nuestro Beat Maker potenciado por IA. Explora 10 álbumes exclusivos.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:locale" content="es_ES">
-    <meta property="og:site_name" content="BeatForge AI">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://beatforge.ai/">
-    <meta name="twitter:title" content="BeatForge AI - Música Procedural con IA">
-    <meta name="twitter:description" content="Crea música profesional al instante con nuestro Beat Maker potenciado por IA.">
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
-    <meta name="theme-color" content="#070714">
-
-    <!-- Preconnect to external resources -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://images.unsplash.com">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Preload critical assets -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1200&q=80">
-
-    <!-- Tailwind Config (must be defined before loading Tailwind) -->
-    <script>
-        window.tailwind = window.tailwind || {};
-        window.tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#6366f1',
-                        secondary: '#8b5cf6',
-                        accent: '#ec4899',
-                        dark: '#0f0f23',
-                        darker: '#070714'
-                    }
-                }
-            }
-        };
-    </script>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Custom Styles (override Tailwind where needed) -->
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Critical CSS fallback -->
-    <style>
-        /* Ensure dark background even if other CSS fails */
-        html, body {
-            background-color: #070714 !important;
-            color: #ffffff !important;
-            font-family: Inter, system-ui, sans-serif !important;
-        }
-        .bg-darker { background-color: #070714 !important; }
-        .bg-dark { background-color: #0f0f23 !important; }
-        .text-white { color: #ffffff !important; }
-    </style>
-
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "BeatForge AI",
-        "description": "Generador de música procedural potenciado por IA, completamente gratis y online",
-        "url": "https://beatforge.ai",
-        "applicationCategory": "MusicApplication",
-        "operatingSystem": "Web Browser",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        
-    </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BeatForge Studio — Nueva Versión</title>
+  <meta name="description" content="BeatForge Studio renovado: interfaz más legible, navegación simplificada y nuevas secciones (Templates, Use Cases, Comunidad).">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-darker text-white antialiased font-sans">
-    <!-- Emergency CSS fallback script -->
-    <script>
-        // Ensure styles are applied immediately
-        document.addEventListener('DOMContentLoaded', function() {
-            // Check if Tailwind classes are working
-            setTimeout(function() {
-                var body = document.body;
-                var computedStyle = window.getComputedStyle(body);
-                var bgColor = computedStyle.backgroundColor;
-                
-                // If background is white/transparent, apply emergency styles
-                if (bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'rgb(255, 255, 255)' || bgColor === 'transparent') {
-                    console.warn('Emergency CSS fallback activated');
-                    body.style.backgroundColor = '#070714';
-                    body.style.color = '#ffffff';
-                    body.style.fontFamily = 'Inter, system-ui, sans-serif';
-                    
-                    // Apply to navigation
-                    var nav = document.querySelector('nav');
-                    if (nav) {
-                        nav.style.backgroundColor = 'rgba(7, 7, 20, 0.9)';
-                        nav.style.backdropFilter = 'blur(12px)';
-                        nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
-                    }
-                }
-            }, 100);
-        });
-    </script>
+<body class="bg-darker text-white font-sans">
+  <!-- Navigation (injected) -->
+  <nav id="main-nav"></nav>
 
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-4 py-2 rounded z-[100]">Saltar al contenido principal</a>
+  <main id="main-content" class="pt-28">
+    <!-- Hero -->
+    <section class="text-center py-20">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Nuevo <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">BeatForge</span></h1>
+      <p class="max-w-2xl mx-auto text-xl text-gray-400">Interfaz más clara, navegación simplificada y herramientas listas para crear música en segundos.</p>
+      <div class="mt-8 flex justify-center gap-4">
+        <a href="maker.html" class="btn-primary">Abrir Music Studio</a>
+        <a href="albums.html" class="btn-secondary">Explorar Álbumes</a>
+      </div>
+    </section>
 
-    <!-- No-JS notice -->
-    <noscript>
-        <div class="bg-yellow-400 text-black px-4 py-3 text-center">
-            Este sitio utiliza JavaScript para reproducir audio y generar beats. Por favor habilita JavaScript para una experiencia completa.
+    <!-- Templates Section -->
+    <section class="py-16 bg-dark/30" aria-labelledby="templates-title">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 id="templates-title" class="text-2xl font-bold mb-4">Templates y Plantillas</h2>
+        <p class="text-gray-400 mb-6">Plantillas listas para empezar: Lo-Fi, Trap, Synthwave y más — ajustes profesionales para acelerar tu flujo creativo.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card">
+            <h3 class="font-bold mb-2">Lo-Fi Starter</h3>
+            <p class="text-gray-400">Texturas cálidas y beats relajados para contenido diario.</p>
+          </div>
+          <div class="card">
+            <h3 class="font-bold mb-2">Trap Essentials</h3>
+            <p class="text-gray-400">Sub-bass potentes y drum kits pulidos.</p>
+          </div>
+          <div class="card">
+            <h3 class="font-bold mb-2">Synthwave Kit</h3>
+            <p class="text-gray-400">Atmósferas retro con leads análogos.</p>
+          </div>
         </div>
-    </noscript>
+      </div>
+    </section>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-darker/90 backdrop-blur-xl border-b border-white/5" role="navigation" aria-label="Navegación principal">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <a href="index.html" class="logo-container flex items-center gap-3 group">
-                    <div class="logo-icon w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold text-white">
-                        BeatForge <span class="text-primary">AI</span>
-                    </span>
-                </a>
-                
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="index.html" class="nav-link text-white font-medium active" aria-current="page">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                            </svg>
-                            Inicio
-                        </span>
-                    </a>
-                    <a href="#albums" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-                            </svg>
-                            Álbumes
-                        </span>
-                    </a>
-                    <a href="maker.html" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
-                            </svg>
-                            Beat Maker
-                        </span>
-                    </a>
-                    <a href="#features" class="nav-link text-gray-300 hover:text-white transition-colors font-medium">
-                        <span class="flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                            Características
-                        </span>
-                    </a>
-                </div>
-                
-                <!-- Language Selector & Mobile Menu -->
-                <div class="flex items-center gap-4">
-                        <!-- Language Dropdown -->
-                        <div class="relative hidden md:block">
-                        <button id="langBtn" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm">
-                            <span id="currentLang">🇪🇸 ES</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </button>
-                        <div id="langDropdown" class="absolute right-0 mt-2 w-40 bg-dark rounded-xl shadow-2xl border border-white/10 overflow-hidden opacity-0 invisible transition-all transform -translate-y-2">
-                            <button data-lang="es" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇪🇸 Español
-                            </button>
-                            <button data-lang="en" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇺🇸 English
-                            </button>
-                            <button data-lang="pt" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇧🇷 Português
-                            </button>
-                            <button data-lang="fr" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇫🇷 Français
-                            </button>
-                            <button data-lang="de" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇩🇪 Deutsch
-                            </button>
-                            <button data-lang="ja" class="w-full px-4 py-3 text-left hover:bg-white/5 transition-colors flex items-center gap-2">
-                                🇯🇵 日本語
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Mobile Menu Button -->
-                    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+    <!-- Use Cases Section -->
+    <section class="py-16">
+      <div class="max-w-5xl mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-4">Casos de Uso</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card">Podcasts y videos</div>
+          <div class="card">Juegos y apps</div>
+          <div class="card">Comerciales y anuncios</div>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="md:hidden hidden bg-dark/95 backdrop-blur-xl border-t border-white/5">
-            <div class="px-4 py-6 space-y-4">
-                <a href="index.html" class="block px-4 py-3 rounded-lg bg-primary/20 text-primary font-medium">
-                    Inicio
-                </a>
-                <a href="#albums" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Álbumes
-                </a>
-                <a href="maker.html" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Music Creator
-                </a>
-                <a href="#features" class="block px-4 py-3 rounded-lg hover:bg-white/5 transition-colors font-medium">
-                    Características
-                </a>
-                <div class="pt-4 border-t border-white/5">
-                    <select id="langSelectorMobile" class="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Seleccionar idioma">
-                        <option value="es" selected>🇪🇸 Español</option>
-                        <option value="en">🇺🇸 English</option>
-                        <option value="pt">🇧🇷 Português</option>
-                        <option value="fr">🇫🇷 Français</option>
-                        <option value="de">🇩🇪 Deutsch</option>
-                        <option value="ja">🇯🇵 日本語</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </nav>
+      </div>
+    </section>
 
-    <!-- Hero Section -->
-    <main id="main-content">
-        <section class="relative overflow-hidden pt-32 pb-20 sm:pb-28">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 animate-fadeIn" data-i18n="hero.title">
-                    <span class="block">Crea Música.</span>
-                    <span class="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">Define Tu Sonido.</span>
-                </h1>
-                <p class="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-gray-400 animate-fadeIn" style="animation-delay: 0.2s" data-i18n="hero.subtitle">
-                    El generador de música procedural más avanzado. Crea beats únicos al instante con IA o hazlo manualmente. Sin instalación, sin registro.
-                </p>
-                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 animate-fadeIn" style="animation-delay: 0.4s">
-                    <a href="maker.html" class="px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-bold text-lg hover:opacity-90 transition-all transform hover:-translate-y-1 shadow-lg shadow-primary/25" data-i18n="hero.cta1">
-                        🎹 Abrir Music Studio
-                    </a>
-                    <a href="#albums" class="px-8 py-4 rounded-xl bg-white/10 border border-white/20 text-white font-bold text-lg hover:bg-white/20 transition-all" data-i18n="hero.cta2">
-                        🎧 Explorar Álbumes
-                    </a>
-                </div>
-                
-                <!-- Stats -->
-                <div class="mt-16 grid grid-cols-3 gap-8 max-w-xl mx-auto animate-fadeIn" style="animation-delay: 0.6s">
-                    <div class="text-center">
-                        <div class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">10+</div>
-                        <div class="text-sm text-gray-500 mt-1" data-i18n="stats.albums">Álbumes</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">120</div>
-                        <div class="text-sm text-gray-500 mt-1" data-i18n="stats.tracks">Pistas</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">∞</div>
-                        <div class="text-sm text-gray-500 mt-1" data-i18n="stats.beats">Beats por Crear</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Background Elements -->
-            <div class="absolute inset-0 z-0 opacity-30 pointer-events-none" aria-hidden="true">
-                <div class="absolute top-20 left-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-                <div class="absolute top-20 right-20 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-            </div>
-        </section>
+    <!-- Community Section -->
+    <section class="py-16 bg-dark/30">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">Comunidad</h2>
+        <p class="text-gray-400 mb-6">Únete a nuestra comunidad en Discord y comparte tus creaciones.</p>
+        <a href="#" class="btn-secondary">Unirme a Discord</a>
+      </div>
+    </section>
 
-        <!-- Features Section -->
-        <section id="features" class="py-20 bg-gradient-to-b from-transparent to-dark/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4" data-i18n="features.title">Características Principales</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="features.subtitle">
-                        Todo lo que necesitas para crear música profesional, directamente en tu navegador.
-                    </p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="p-8 rounded-2xl bg-dark/50 border border-white/10 hover:border-primary/50 transition-all group">
-                        <div class="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3" data-i18n="features.ai.title">Generación con IA</h3>
-                        <p class="text-gray-400" data-i18n="features.ai.desc">Generación de beats con un clic usando patrones inteligentes. Múltiples géneros soportados.</p>
-                    </div>
-                    
-                    <div class="p-8 rounded-2xl bg-dark/50 border border-white/10 hover:border-secondary/50 transition-all group">
-                        <div class="w-14 h-14 bg-secondary/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <svg class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3" data-i18n="features.export.title">Exportar a WAV</h3>
-                        <p class="text-gray-400" data-i18n="features.export.desc">Descarga tus beats en formato WAV de alta calidad. Úsalos donde quieras.</p>
-                    </div>
-                    
-                    <div class="p-8 rounded-2xl bg-dark/50 border border-white/10 hover:border-accent/50 transition-all group">
-                        <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                            <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3" data-i18n="features.free.title">100% Gratis</h3>
-                        <p class="text-gray-400" data-i18n="features.free.desc">Sin suscripción, sin costos ocultos. Crea beats ilimitados para siempre.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  </main>
 
-        <!-- Albums Section -->
-        <section id="albums" class="py-20 bg-dark/30" aria-labelledby="albums-title">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 id="albums-title" class="text-3xl md:text-4xl font-bold mb-4" data-i18n="albums.title">Álbumes Destacados</h2>
-                    <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="albums.subtitle">
-                        Descubre 10 álbumes exclusivos creados con nuestro motor de música procedural. De Lo-Fi a Cyberpunk, todos los géneros cubiertos.
-                    </p>
-                </div>
+  <!-- Footer (injected) -->
+  <footer id="main-footer"></footer>
 
-                <!-- Genre Filter -->
-                <div class="flex flex-wrap justify-center gap-2 mb-12" role="tablist" aria-label="Filtrar álbumes por género">
-                    <button class="genre-filter px-4 py-2 rounded-full bg-primary text-white text-sm font-medium transition" data-genre="all" role="tab" aria-selected="true">
-                        Todos los Géneros
-                    </button>
-                    <button class="genre-filter px-4 py-2 rounded-full bg-white/10 text-gray-300 text-sm font-medium hover:bg-white/20 transition" data-genre="lofi" role="tab" aria-selected="false">
-                        Lo-Fi
-                    </button>
-                    <button class="genre-filter px-4 py-2 rounded-full bg-white/10 text-gray-300 text-sm font-medium hover:bg-white/20 transition" data-genre="trap" role="tab" aria-selected="false">
-                        Trap
-                    </button>
-                    <button class="genre-filter px-4 py-2 rounded-full bg-white/10 text-gray-300 text-sm font-medium hover:bg-white/20 transition" data-genre="synth" role="tab" aria-selected="false">
-                        Synthwave
-                    </button>
-                    <button class="genre-filter px-4 py-2 rounded-full bg-white/10 text-gray-300 text-sm font-medium hover:bg-white/20 transition" data-genre="techno" role="tab" aria-selected="false">
-                        Techno
-                    </button>
-                    <button class="genre-filter px-4 py-2 rounded-full bg-white/10 text-gray-300 text-sm font-medium hover:bg-white/20 transition" data-genre="ambient" role="tab" aria-selected="false">
-                        Ambient
-                    </button>
-                </div>
-
-                <div id="album-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" role="list" aria-label="Lista de álbumes">
-                    <!-- Albums will be injected here by JS -->
-                    <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
-                    <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
-                    <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
-                    <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="py-20 relative overflow-hidden">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                <h2 class="text-3xl md:text-5xl font-bold mb-6" data-i18n="cta.title">¿Listo para Crear Tu Primer Beat?</h2>
-                <p class="text-gray-400 text-lg mb-8" data-i18n="cta.subtitle">Únete a miles de productores que usan BeatForge AI para hacer música cada día.</p>
-                <a href="maker.html" class="btn-primary inline-flex items-center gap-3 px-10 py-5 rounded-xl text-white font-bold text-xl shadow-xl shadow-primary/30" data-i18n="cta.button">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                    <span>Abrir Beat Maker</span>
-                </a>
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 pointer-events-none" aria-hidden="true"></div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-dark/50 border-t border-white/5" role="contentinfo">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <!-- Brand -->
-                <div class="footer-section md:col-span-2">
-                    <a href="index.html" class="logo-container flex items-center gap-3 mb-4">
-                        <div class="logo-icon w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-                            </svg>
-                        </div>
-                        <span class="text-xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                            BeatForge AI
-                        </span>
-                    </a>
-                    <p class="text-gray-400 max-w-md mb-6" data-i18n="footer.desc">
-                        Música generada proceduralmente con inteligencia artificial. Cada reproducción es una experiencia única.
-                    </p>
-                    <div class="flex gap-4">
-                        <!-- GitHub -->
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#333] hover:text-white transition-all duration-300 group" aria-label="GitHub">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                        </a>
-                        <!-- X (Twitter) -->
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-icon w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 group" aria-label="X (Twitter)">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
-                        <!-- YouTube -->
-                        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-icon w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#FF0000] hover:text-white transition-all duration-300 group" aria-label="YouTube">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                            </svg>
-                        </a>
-                        <!-- Instagram -->
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-icon w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gradient-to-br hover:from-[#833ab4] hover:via-[#fd1d1d] hover:to-[#fcb045] hover:text-white transition-all duration-300 group" aria-label="Instagram">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                        <!-- LinkedIn -->
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-icon w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all duration-300 group" aria-label="LinkedIn">
-                            <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Links -->
-                <div class="footer-section">
-                    <h3 class="font-semibold mb-4 flex items-center gap-2" data-i18n="footer.product">
-                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-                        </svg>
-                        Navegación
-                    </h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="index.html" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Inicio
-                        </a></li>
-                        <li><a href="#albums" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Álbumes
-                        </a></li>
-                        <li><a href="maker.html" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Beat Maker
-                        </a></li>
-                        <li><a href="#features" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Características
-                        </a></li>
-                    </ul>
-                </div>
-                
-                <!-- Legal -->
-                <div class="footer-section">
-                    <h3 class="font-semibold mb-4 flex items-center gap-2" data-i18n="footer.legal">
-                        <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
-                        Legal
-                    </h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><a href="#" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Privacidad
-                        </a></li>
-                        <li><a href="#" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Términos
-                        </a></li>
-                        <li><a href="#" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Licencias
-                        </a></li>
-                        <li><a href="#" class="footer-link flex items-center gap-2">
-                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-                            Cookies
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-white/5 mt-12 pt-8 text-center text-gray-500 text-sm">
-                <p class="flex items-center justify-center gap-2">
-                    <span>&copy; 2025 BeatForge AI.</span>
-                    <span class="hidden sm:inline">Todos los derechos reservados.</span>
-                    <span class="flex items-center gap-1">
-                        Música generada con 
-                        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
-                        </svg>
-                        e IA.
-                    </span>
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Toast Container -->
-    <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2" aria-live="polite" aria-atomic="true"></div>
-
-    <script type="module" src="js/main.js"></script>
-    
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        mobileMenuBtn?.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-            mobileMenuBtn.setAttribute('aria-expanded', !expanded);
-        });
-        
-        // Close mobile menu when clicking on a link
-        mobileMenu?.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuBtn.setAttribute('aria-expanded', 'false');
-            });
-        });
-        
-        // Language dropdown
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
-        
-        langBtn?.addEventListener('click', () => {
-            langDropdown.classList.toggle('opacity-0');
-            langDropdown.classList.toggle('invisible');
-            langDropdown.classList.toggle('-translate-y-2');
-        });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!langBtn?.contains(e.target) && !langDropdown?.contains(e.target)) {
-                langDropdown?.classList.add('opacity-0', 'invisible', '-translate-y-2');
-            }
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
+  <script type="module">
+    import { createNavigation, createFooter, initializeNavigation } from './js/components.js';
+    document.getElementById('main-nav').innerHTML = createNavigation('home','es');
+    document.getElementById('main-footer').innerHTML = createFooter('es');
+    initializeNavigation();
+  </script>
 </body>
 </html>

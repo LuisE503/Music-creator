@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatForge Studio - Select Your Language</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Select your preferred language for BeatForge Studio - Professional Music Creator with AI">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#ec4899',
+                        dark: '#13131a',
+                        darker: '#0a0a0f'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #13131a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .language-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .language-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+        
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: blob 7s infinite;
+        }
+        
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+    </style>
+</head>
+<body class="font-sans text-white antialiased">
+    <!-- Background Blobs -->
+    <div class="blob" style="top: 10%; left: 10%; width: 300px; height: 300px; background: #6366f1;"></div>
+    <div class="blob" style="top: 60%; right: 10%; width: 400px; height: 400px; background: #8b5cf6; animation-delay: 2s;"></div>
+    <div class="blob" style="bottom: 10%; left: 50%; width: 350px; height: 350px; background: #ec4899; animation-delay: 4s;"></div>
+    
+    <!-- Main Container -->
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-4 py-8">
+        <!-- Logo & Title -->
+        <div class="text-center mb-12 animate-fadeIn">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent mb-6 shadow-2xl">
+                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                </svg>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
+                <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                    BeatForge Studio
+                </span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                Select your preferred language to continue
+            </p>
+        </div>
+        
+        <!-- Language Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <!-- Spanish -->
+            <a href="index.html" class="language-card block p-8 rounded-2xl bg-dark/40 backdrop-blur-xl border border-white/10 hover:border-primary/50 group" data-lang="es">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="text-5xl">🇪🇸</div>
+                    <div>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">Español</h3>
+                        <p class="text-sm text-gray-400">Spanish</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    Crea música profesional con IA
+                </p>
+            </a>
+            
+            <!-- English -->
+            <a href="index-en.html" class="language-card block p-8 rounded-2xl bg-dark/40 backdrop-blur-xl border border-white/10 hover:border-primary/50 group" data-lang="en">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="text-5xl">🇺🇸</div>
+                    <div>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">English</h3>
+                        <p class="text-sm text-gray-400">English</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    Create professional music with AI
+                </p>
+            </a>
+            
+            <!-- Portuguese -->
+            <a href="index-pt.html" class="language-card block p-8 rounded-2xl bg-dark/40 backdrop-blur-xl border border-white/10 hover:border-primary/50 group" data-lang="pt">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="text-5xl">🇧🇷</div>
+                    <div>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">Português</h3>
+                        <p class="text-sm text-gray-400">Portuguese</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    Crie música profissional com IA
+                </p>
+            </a>
+            
+            <!-- French -->
+            <a href="index-fr.html" class="language-card block p-8 rounded-2xl bg-dark/40 backdrop-blur-xl border border-white/10 hover:border-primary/50 group" data-lang="fr">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="text-5xl">🇫🇷</div>
+                    <div>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">Français</h3>
+                        <p class="text-sm text-gray-400">French</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    Créez de la musique professionnelle avec l'IA
+                </p>
+            </a>
+            
+            <!-- German -->
+            <a href="index-de.html" class="language-card block p-8 rounded-2xl bg-dark/40 backdrop-blur-xl border border-white/10 hover:border-primary/50 group" data-lang="de">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="text-5xl">🇩🇪</div>
+                    <div>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">Deutsch</h3>
+                        <p class="text-sm text-gray-400">German</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    Erstellen Sie professionelle Musik mit KI
+                </p>
+            </a>
+            
+            <!-- Japanese -->
+            <a href="index.html" class="language-card block p-8 rounded-2xl bg-dark/40 backdrop-blur-xl border border-white/10 hover:border-primary/50 group" data-lang="ja">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="text-5xl">🇯🇵</div>
+                    <div>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">日本語</h3>
+                        <p class="text-sm text-gray-400">Japanese</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm">
+                    AIでプロの音楽を作成
+                </p>
+            </a>
+        </div>
+        
+        <!-- Auto-detect -->
+        <div class="text-center mt-12 animate-fadeIn" style="animation-delay: 0.3s;">
+            <button id="autoDetectBtn" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all text-sm font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Auto-detect my language
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Save language preference
+        document.querySelectorAll('.language-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const lang = this.getAttribute('data-lang');
+                localStorage.setItem('beatforge_language', lang);
+            });
+        });
+        
+        // Auto-detect language
+        document.getElementById('autoDetectBtn').addEventListener('click', function() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.split('-')[0];
+            
+            const langMap = {
+                'es': 'index.html',
+                'en': 'index-en.html',
+                'pt': 'index-pt.html',
+                'fr': 'index-fr.html',
+                'de': 'index-de.html',
+                'ja': 'index.html'
+            };
+            
+            const targetPage = langMap[langCode] || 'index-en.html';
+            localStorage.setItem('beatforge_language', langCode);
+            window.location.href = targetPage;
+        });
+        
+        // Check if language was already selected
+        const savedLang = localStorage.getItem('beatforge_language');
+        if (savedLang && window.location.search.indexOf('force') === -1) {
+            const langMap = {
+                'es': 'index.html',
+                'en': 'index-en.html',
+                'pt': 'index-pt.html',
+                'fr': 'index-fr.html',
+                'de': 'index-de.html',
+                'ja': 'index.html'
+            };
+            
+            const targetPage = langMap[savedLang];
+            if (targetPage) {
+                // Redirect after a short delay to allow user to see the page
+                setTimeout(() => {
+                    window.location.href = targetPage;
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>

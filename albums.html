@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Álbumes de Música Sin Copyright | BeatForge AI</title>
+    <meta name="description" content="Descubre 10 álbumes exclusivos de música sin copyright. Explora Lo-Fi, Synthwave, Trap, Ambient, Techno y más. Hub de música libre de derechos de autor.">
+    <meta name="keywords" content="música sin copyright, álbumes royalty-free, música libre de derechos, creador de música, beats gratis">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Álbumes de Música Sin Copyright | BeatForge AI">
+    <meta property="og:description" content="10 álbumes exclusivos de música libre de derechos. Lo-Fi, Synthwave, Trap, Ambient y más.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://beatforge.ai/albums">
+    <meta property="og:image" content="https://beatforge.ai/assets/og-albums.png">
+    
+    <link rel="canonical" href="https://beatforge.ai/albums">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        html, body {
+            background-color: #070714 !important;
+            color: #ffffff !important;
+            font-family: Inter, system-ui, sans-serif !important;
+        }
+    </style>
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Álbumes de Música Sin Copyright",
+      "description": "Colección de 10 álbumes de música libre de derechos en diferentes géneros",
+      "url": "https://beatforge.ai/albums"
+    }
+    </script>
+</head>
+<body class="bg-darker text-white">
+    <!-- Navigation will be injected here -->
+    <nav id="main-nav"></nav>
+
+
+    <main class="pt-24 pb-20 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Hero Section -->
+            <div class="text-center mb-16 animate-fade-in">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                    Álbumes de Música Sin Copyright
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                    Descubre nuestro hub de música libre de derechos de autor. 10 álbumes exclusivos en diferentes géneros, creados como ejemplos con nuestro generador procedural de música con IA.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <span class="px-4 py-2 bg-green-500/20 text-green-400 rounded-full text-sm font-medium border border-green-500/30">
+                        <i class="fas fa-check-circle"></i> 100% Libre de Derechos
+                    </span>
+                    <span class="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-full text-sm font-medium border border-blue-500/30">
+                        <i class="fas fa-music"></i> 10 Álbumes Exclusivos
+                    </span>
+                    <span class="px-4 py-2 bg-purple-500/20 text-purple-400 rounded-full text-sm font-medium border border-purple-500/30">
+                        <i class="fas fa-robot"></i> Generado con IA
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Genre Filter -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 animate-slide-in-up" role="tablist" aria-label="Filtros de género">
+                <button class="genre-filter px-5 py-2.5 rounded-full bg-primary text-white text-sm font-semibold shadow-lg shadow-primary/20 transition-all hover:scale-105" data-genre="all" role="tab" aria-selected="true">
+                    <i class="fas fa-compact-disc mr-1"></i> Todos los Géneros
+                </button>
+                <button class="genre-filter px-5 py-2.5 rounded-full bg-white/5 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all border border-white/10 hover:border-white/20" data-genre="lofi" role="tab" aria-selected="false">
+                    <i class="fas fa-cloud mr-1"></i> Lo-Fi
+                </button>
+                <button class="genre-filter px-5 py-2.5 rounded-full bg-white/5 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all border border-white/10 hover:border-white/20" data-genre="trap" role="tab" aria-selected="false">
+                    <i class="fas fa-cube mr-1"></i> Trap
+                </button>
+                <button class="genre-filter px-5 py-2.5 rounded-full bg-white/5 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all border border-white/10 hover:border-white/20" data-genre="synth" role="tab" aria-selected="false">
+                    <i class="fas fa-wave-square mr-1"></i> Synthwave
+                </button>
+                <button class="genre-filter px-5 py-2.5 rounded-full bg-white/5 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all border border-white/10 hover:border-white/20" data-genre="techno" role="tab" aria-selected="false">
+                    <i class="fas fa-drum mr-1"></i> Techno
+                </button>
+                <button class="genre-filter px-5 py-2.5 rounded-full bg-white/5 text-gray-300 text-sm font-medium hover:bg-white/10 hover:text-white transition-all border border-white/10 hover:border-white/20" data-genre="ambient" role="tab" aria-selected="false">
+                    <i class="fas fa-leaf mr-1"></i> Ambient
+                </button>
+            </div>
+
+            <!-- Albums Grid -->
+            <div id="album-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in" role="list" aria-label="Lista de álbumes">
+                <!-- Albums will be injected here by JS -->
+                <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
+                <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
+                <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
+                <div class="skeleton aspect-square rounded-2xl bg-white/5 animate-pulse"></div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="mt-20 text-center p-12 rounded-3xl bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 border border-white/10 animate-fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Quieres Crear Tu Propia Música?</h2>
+                <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+                    Usa nuestro Music Creator AI para generar beats, melodías y canciones completas en segundos
+                </p>
+                <a href="maker.html" class="btn-primary inline-flex items-center gap-2 text-lg">
+                    <i class="fas fa-music"></i>
+                    Ir al Music Creator
+                    <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer will be injected here -->
+    <footer id="main-footer"></footer>
+
+    <!-- Scripts -->
+    <script type="module">
+        import { createNavigation, createFooter, initializeNavigation } from './js/components.js';
+        
+        // Inject Navigation & Footer
+        document.getElementById('main-nav').innerHTML = createNavigation('albums', 'es');
+        document.getElementById('main-footer').innerHTML = createFooter('es');
+        
+        // Initialize interactive elements
+        initializeNavigation();
+
+        // Genre Filter Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.genre-filter');
+            const albumGrid = document.getElementById('album-grid');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/20');
+                        btn.classList.add('bg-white/5', 'text-gray-300');
+                        btn.setAttribute('aria-selected', 'false');
+                    });
+                    button.classList.remove('bg-white/5', 'text-gray-300');
+                    button.classList.add('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/20');
+                    button.setAttribute('aria-selected', 'true');
+
+                    // Filter logic (will connect to main.js album data)
+                    const genre = button.dataset.genre;
+                    console.log('Filtering by genre:', genre);
+                    
+                    // Trigger custom event for main.js to handle
+                    window.dispatchEvent(new CustomEvent('albumFilter', { detail: { genre } }));
+                });
+            });
+        });
+    </script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

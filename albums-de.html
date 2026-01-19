@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary Meta Tags -->
+    <title>Alben - BeatForge AI | Urheberrechtsfreie Musiksammlung</title>
+    <meta name="title" content="Alben - BeatForge AI | Urheberrechtsfreie Musiksammlung">
+    <meta name="description" content="Erkunden Sie 10 exklusive Alben mit urheberrechtsfreien Beats und lizenzfreier Musik. Durchsuchen Sie nach Genre: Lo-Fi, Trap, Synthwave, Techno, Ambient und mehr.">
+    <meta name="keywords" content="Alben, urheberrechtsfreie Musik, lizenzfreie Beats, Beat-Sammlungen, Musikbibliothek">
+    <meta name="author" content="BeatForge AI">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="German">
+    <meta name="revisit-after" content="7 days">
+    <link rel="canonical" href="https://beatforge.ai/de/albums">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://beatforge.ai/de/albums">
+    <meta property="og:title" content="Alben - BeatForge AI | Urheberrechtsfreie Musik">
+    <meta property="og:description" content="Erkunden Sie 10 exklusive Alben mit urheberrechtsfreien Beats.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="BeatForge AI">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎵%3C/text%3E%3C/svg%3E">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <style>
+        html, body {
+            background-color: #070714 !important;
+            color: #ffffff !important;
+            font-family: Inter, system-ui, sans-serif !important;
+        }
+    </style>
+</head>
+<body class="bg-darker text-white">
+    <!-- Navigation -->
+    <nav id="main-nav"></nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="pt-24">
+        <!-- Header -->
+        <section class="relative overflow-hidden py-12 md:py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    Urheberrechtsfreie Alben
+                </h1>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                    Erkunden Sie 10 exklusive Sammlungen lizenzfreier Musik. Durchsuchen Sie nach Genre und finden Sie die perfekten Beats für Ihr Projekt.
+                </p>
+            </div>
+            
+            <!-- Background Elements -->
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none" aria-hidden="true">
+                <div class="absolute top-20 left-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+                <div class="absolute top-20 right-20 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+            </div>
+        </section>
+
+        <!-- Genre Filters -->
+        <section class="py-8 sticky top-16 z-40 bg-darker/90 backdrop-blur-xl border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-wrap gap-3">
+                    <button class="genre-filter active px-6 py-2 rounded-full font-semibold transition-all" data-genre="all">
+                        Alle Genres
+                    </button>
+                    <button class="genre-filter px-6 py-2 rounded-full font-semibold transition-all" data-genre="lofi">
+                        Lo-Fi
+                    </button>
+                    <button class="genre-filter px-6 py-2 rounded-full font-semibold transition-all" data-genre="trap">
+                        Trap
+                    </button>
+                    <button class="genre-filter px-6 py-2 rounded-full font-semibold transition-all" data-genre="synth">
+                        Synthwave
+                    </button>
+                    <button class="genre-filter px-6 py-2 rounded-full font-semibold transition-all" data-genre="techno">
+                        Techno
+                    </button>
+                    <button class="genre-filter px-6 py-2 rounded-full font-semibold transition-all" data-genre="ambient">
+                        Ambient
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Albums Grid -->
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div id="albumsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Albums will be loaded here by JavaScript -->
+                    <div class="skeleton-loader col-span-full h-64"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer"></footer>
+
+    <script type="module">
+        import { createNavigation, createFooter, initializeNavigation } from './js/components.js';
+        import { albums } from './js/data.js';
+        
+        document.getElementById('main-nav').innerHTML = createNavigation('albums', 'de');
+        document.getElementById('main-footer').innerHTML = createFooter('de');
+        
+        initializeNavigation();
+
+        // Render albums function
+        function renderAlbums(filter = 'all') {
+            const grid = document.getElementById('albumsGrid');
+            let filtered = albums;
+
+            if (filter !== 'all') {
+                filtered = albums.filter(album => album.genre.toLowerCase() === filter);
+            }
+
+            grid.innerHTML = filtered.map(album => `
+                <div class="album-card group cursor-pointer">
+                    <div class="relative rounded-2xl overflow-hidden mb-4 h-64">
+                        <img src="${album.cover}" alt="${album.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <button class="absolute bottom-4 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-primary hover:bg-secondary transition-all opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 flex items-center justify-center shadow-xl" title="Abspielen">
+                            <i class="fas fa-play text-white text-lg ml-1"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-semibold">${album.genre}</span>
+                            <span class="text-xs text-gray-500">${album.year}</span>
+                        </div>
+                        <h3 class="font-bold text-lg group-hover:text-primary transition-colors">
+                            <a href="album.html?id=${album.id}" class="hover:text-primary">${album.title}</a>
+                        </h3>
+                        <p class="text-gray-400 text-sm">${album.artist}</p>
+                        <p class="text-gray-500 text-xs">${album.songs.length} Titel • Lizenzfrei</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Genre filter functionality
+        document.querySelectorAll('.genre-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.genre-filter').forEach(b => b.classList.remove('active', 'bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white'));
+                btn.classList.add('active', 'bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white');
+                renderAlbums(btn.dataset.genre);
+            });
+        });
+
+        // Initialize
+        renderAlbums('all');
+        document.querySelector('.genre-filter').classList.add('bg-gradient-to-r', 'from-primary', 'to-secondary', 'text-white');
+    </script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
